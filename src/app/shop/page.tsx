@@ -1,0 +1,41 @@
+import type { Metadata } from "next";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { ProductGrid } from "@/components/ProductGrid";
+import { repository } from "@/lib/store";
+
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Shop",
+  description:
+    "Browse authentic Nike, Adidas, Puma, Asics and New Balance sneakers — delivered anywhere in China.",
+};
+
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: { brand?: string };
+}) {
+  const products = await repository.list();
+
+  return (
+    <main>
+      <Navbar />
+      <div className="container-x pt-28 md:pt-36">
+        <span className="eyebrow">The collection</span>
+        <h1 className="mt-2 font-display text-4xl font-black tracking-tight sm:text-5xl">
+          Shop Sneakers
+        </h1>
+        <p className="mt-3 max-w-xl text-[var(--fg-muted)]">
+          Authentic pairs, ready to ship across China. Filter by brand, size and
+          price — then order in one tap on Instagram.
+        </p>
+      </div>
+      <div className="mt-10">
+        <ProductGrid products={products} initialBrand={searchParams.brand} />
+      </div>
+      <Footer />
+    </main>
+  );
+}

@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f8f8f8;
+  --bg-elevated: #ffffff;
+  --fg: #0a0a0a;
+  --fg-muted: #5c5c5c;
+  --border: rgba(10, 10, 10, 0.08);
+  --glass: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --gold: #d4af37;
+}
+
+.dark {
+  --bg: #070707;
+  --bg-elevated: #121214;
+  --fg: #f5f5f5;
+  --fg-muted: #a1a1a1;
+  --border: rgba(255, 255, 255, 0.1);
+  --glass: rgba(20, 20, 22, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --gold: #e7c868;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--gold);
+    color: #0a0a0a;
+  }
+  /* Slim, on-brand scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--gold) 60%, transparent);
+    border-radius: 999px;
+    border: 3px solid var(--bg);
+  }
+}
+
+@layer components {
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid var(--glass-border);
+  }
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+  }
+  .gold-text {
+    color: var(--gold);
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-300 active:scale-[0.97];
+  }
+  .btn-primary {
+    @apply btn bg-[var(--fg)] text-[var(--bg)] hover:opacity-90 hover:shadow-soft;
+  }
+  .btn-gold {
+    @apply btn bg-gold text-black hover:bg-gold-light hover:shadow-glow;
+  }
+  .btn-outline {
+    @apply btn border border-[var(--border)] bg-transparent text-[var(--fg)] hover:border-gold hover:text-gold;
+  }
+  .card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    @apply rounded-3xl;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.25em] text-gold;
+  }
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--fg) 6%, transparent),
+    transparent
+  );
+  animation: shimmer 1.6s infinite;
+}
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
