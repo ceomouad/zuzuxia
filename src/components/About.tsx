@@ -29,7 +29,7 @@ export function About() {
             align="left"
             eyebrow="Why us"
             title="Why Zu Zu Xia?"
-            subtitle="We help foreigners living in China buy authentic sneakers quickly and easily. No complicated Chinese apps, no language barriers, and reliable customer support through Instagram."
+            subtitle="We help athletes and foreigners living in China buy authentic track & field spikes quickly and easily — brand new or second hand. No complicated Chinese apps, no language barriers, and reliable customer support through Instagram."
           />
         </div>
         <div className="grid gap-4">

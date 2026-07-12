@@ -249,7 +249,9 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                     <td className="hidden px-4 py-3 text-[var(--fg-muted)] sm:table-cell">
                       {p.brand}
                     </td>
-                    <td className="px-4 py-3">{formatPrice(p.price)}</td>
+                    <td className="px-4 py-3">
+                      {p.priceLabel ?? formatPrice(p.price)}
+                    </td>
                     <td className="hidden px-4 py-3 text-[var(--fg-muted)] md:table-cell">
                       {p.sizes.join(", ")}
                     </td>

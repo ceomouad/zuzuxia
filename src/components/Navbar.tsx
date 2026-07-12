@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Instagram, Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { SpikeMark } from "./SpikeMark";
 import { INSTAGRAM_URL, SITE } from "@/lib/config";
 
 const LINKS = [
@@ -34,8 +35,8 @@ export function Navbar() {
       >
         <nav className="container-x flex h-16 items-center justify-between md:h-20">
           <Link href="/" className="group flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-gold font-display text-lg font-black text-black transition-transform group-hover:rotate-12">
-              Z
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-gold text-black transition-transform group-hover:rotate-12">
+              <SpikeMark className="h-6 w-6" />
             </span>
             <span className="font-display text-lg font-bold tracking-tight">
               {SITE.name}

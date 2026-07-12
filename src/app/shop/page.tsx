@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Shop",
   description:
-    "Browse authentic Nike, Adidas, Puma, Asics and New Balance sneakers — delivered anywhere in China.",
+    "Browse authentic Nike, Adidas, Puma and Asics track & field spikes — brand new and second hand, delivered anywhere in China.",
 };
 
 export default async function ShopPage({
@@ -25,11 +25,11 @@ export default async function ShopPage({
       <div className="container-x pt-28 md:pt-36">
         <span className="eyebrow">The collection</span>
         <h1 className="mt-2 font-display text-4xl font-black tracking-tight sm:text-5xl">
-          Shop Sneakers
+          Shop Track Spikes
         </h1>
         <p className="mt-3 max-w-xl text-[var(--fg-muted)]">
-          Authentic pairs, ready to ship across China. Filter by brand, size and
-          price — then order in one tap on Instagram.
+          Authentic pairs, ready to ship across China. Filter by brand, event,
+          size and price — then order in one tap on Instagram.
         </p>
       </div>
       <div className="mt-10">

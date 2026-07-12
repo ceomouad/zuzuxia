@@ -15,11 +15,12 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   keywords: [
-    "sneakers China",
-    "buy sneakers China",
-    "authentic sneakers expats",
-    "Nike Adidas China delivery",
-    "foreigners sneakers China",
+    "track spikes China",
+    "buy track spikes China",
+    "sprint spikes",
+    "Nike Maxfly Adidas Adizero China delivery",
+    "track and field shoes China",
+    "second hand spikes",
     "Zu Zu Xia",
   ],
   openGraph: {

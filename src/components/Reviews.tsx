@@ -4,7 +4,7 @@ import { ScrollReveal } from "./ScrollReveal";
 
 const REVIEWS = [
   { quote: "Fast delivery and authentic shoes!", name: "Liam", role: "Exchange student, Shanghai" },
-  { quote: "Finally an easy way to buy sneakers in China.", name: "Aïcha", role: "Expat, Shenzhen" },
+  { quote: "Finally an easy way to buy track spikes in China.", name: "Aïcha", role: "Sprinter, Shenzhen" },
   { quote: "Great prices and amazing customer support.", name: "Marco", role: "Teacher, Beijing" },
 ];
 

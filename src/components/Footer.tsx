@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Instagram } from "lucide-react";
+import { SpikeMark } from "./SpikeMark";
 import { INSTAGRAM_URL, SITE } from "@/lib/config";
 
 export function Footer() {
@@ -8,8 +9,8 @@ export function Footer() {
       <div className="container-x grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-gold font-display text-lg font-black text-black">
-              Z
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-gold text-black">
+              <SpikeMark className="h-6 w-6" />
             </span>
             <span className="font-display text-lg font-bold">{SITE.name}</span>
           </div>

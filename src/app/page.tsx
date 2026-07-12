@@ -25,7 +25,7 @@ export default async function HomePage() {
   const heroImage =
     featuredList[0]?.images[0] ??
     products[0]?.images[0] ??
-    "/products/p21.jpg";
+    "/products/s17a.jpg";
 
   return (
     <main>

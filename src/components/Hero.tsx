@@ -41,7 +41,7 @@ export function Hero({ heroImage }: { heroImage: string }) {
             transition={{ duration: 0.6, delay: 0.05 }}
             className="mt-5 font-display text-5xl font-black leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl"
           >
-            Premium Sneakers <span className="gold-text">in China</span>
+            Premium Track Spikes <span className="gold-text">in China</span>
           </motion.h1>
 
           <motion.p
@@ -50,8 +50,8 @@ export function Hero({ heroImage }: { heroImage: string }) {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="mt-6 max-w-lg text-lg text-[var(--fg-muted)]"
           >
-            Authentic sneakers delivered all across China for international
-            students, expats and foreigners.
+            Authentic Nike, Adidas, Asics &amp; Puma track &amp; field spikes —
+            brand new and second hand — delivered all across China.
           </motion.p>
 
           <motion.div
@@ -103,7 +103,7 @@ export function Hero({ heroImage }: { heroImage: string }) {
             <div className="relative aspect-[4/3] w-full">
               <Image
                 src={heroImage}
-                alt="Featured sneaker"
+                alt="Featured track spike"
                 fill
                 priority
                 sizes="(max-width: 1024px) 90vw, 40vw"

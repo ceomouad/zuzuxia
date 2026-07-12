@@ -49,13 +49,15 @@ export function ProductCard({ product }: { product: Product }) {
                 {product.name}
               </h3>
             </div>
-            <div className="text-right">
-              <p className="font-display text-lg font-bold">
-                {formatPrice(product.price)}
+            <div className="shrink-0 text-right">
+              <p className="font-display text-base font-bold leading-tight">
+                {product.priceLabel ?? formatPrice(product.price)}
               </p>
-              {product.priceUsed != null && (
+              {(product.priceUsedLabel ?? product.priceUsed) != null && (
                 <p className="text-xs text-[var(--fg-muted)]">
-                  used {formatPrice(product.priceUsed)}
+                  used{" "}
+                  {product.priceUsedLabel ??
+                    formatPrice(product.priceUsed as number)}
                 </p>
               )}
             </div>
@@ -99,7 +101,11 @@ function QuickView({
   onClose: () => void;
 }) {
   const [size, setSize] = useState<string | null>(product.sizes[0] ?? null);
+  const [active, setActive] = useState(0);
   const [copied, setCopied] = useState(false);
+  const gallery = product.images.length
+    ? product.images
+    : ["/products/placeholder.jpg"];
 
   async function buy() {
     await openInstagramOrder(product.name, size ?? undefined);
@@ -134,14 +140,41 @@ function QuickView({
           <X size={18} />
         </button>
 
-        <div className="relative aspect-square bg-white">
-          <Image
-            src={product.images[0] ?? "/products/placeholder.jpg"}
-            alt={product.name}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain p-8"
-          />
+        <div className="flex flex-col bg-white">
+          <div className="relative aspect-square w-full">
+            <Image
+              src={gallery[active] ?? gallery[0]}
+              alt={product.name}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain p-8"
+            />
+          </div>
+          {gallery.length > 1 && (
+            <div className="flex flex-wrap gap-2 border-t border-black/5 p-3">
+              {gallery.map((src, i) => (
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => setActive(i)}
+                  aria-label={`View colorway ${i + 1}`}
+                  className={`relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border transition ${
+                    active === i
+                      ? "border-gold ring-1 ring-gold"
+                      : "border-black/10 hover:border-gold/60"
+                  }`}
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    sizes="48px"
+                    className="object-contain p-1"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-4 overflow-y-auto p-7">
@@ -152,13 +185,15 @@ function QuickView({
             </h3>
           </div>
 
-          <div className="flex items-baseline gap-3">
-            <span className="font-display text-3xl font-bold">
-              {formatPrice(product.price)}
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="font-display text-2xl font-bold sm:text-3xl">
+              {product.priceLabel ?? formatPrice(product.price)}
             </span>
-            {product.priceUsed != null && (
+            {(product.priceUsedLabel ?? product.priceUsed) != null && (
               <span className="text-sm text-[var(--fg-muted)]">
-                used {formatPrice(product.priceUsed)}
+                used{" "}
+                {product.priceUsedLabel ??
+                  formatPrice(product.priceUsed as number)}
               </span>
             )}
           </div>

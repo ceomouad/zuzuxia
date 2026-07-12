@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/config";
@@ -20,6 +20,10 @@ export function ProductGrid({
     () => Array.from(new Set(products.map((p) => p.brand))).sort(),
     [products]
   );
+  const categories = useMemo(
+    () => Array.from(new Set(products.map((p) => p.category))).filter(Boolean),
+    [products]
+  );
   const sizes = useMemo(
     () =>
       Array.from(new Set(products.flatMap((p) => p.sizes))).sort(
@@ -36,6 +40,7 @@ export function ProductGrid({
   const [brand, setBrand] = useState<string>(
     initialBrand && brands.includes(initialBrand) ? initialBrand : "All"
   );
+  const [category, setCategory] = useState<string>("All");
   const [size, setSize] = useState<string | null>(null);
   const [maxPrice, setMaxPrice] = useState<number>(priceBounds.max);
   const [sort, setSort] = useState<Sort>("featured");
@@ -44,6 +49,7 @@ export function ProductGrid({
   const filtered = useMemo(() => {
     let list = products.filter((p) => {
       if (brand !== "All" && p.brand !== brand) return false;
+      if (category !== "All" && p.category !== category) return false;
       if (size && !p.sizes.includes(size)) return false;
       if (p.price > maxPrice) return false;
       if (query) {
@@ -70,11 +76,12 @@ export function ProductGrid({
       }
     });
     return list;
-  }, [products, brand, size, maxPrice, query, sort]);
+  }, [products, brand, category, size, maxPrice, query, sort]);
 
   const resetAll = () => {
     setQuery("");
     setBrand("All");
+    setCategory("All");
     setSize(null);
     setMaxPrice(priceBounds.max);
     setSort("featured");
@@ -92,7 +99,7 @@ export function ProductGrid({
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search sneakers or brands…"
+            placeholder="Search spikes or brands…"
             className="w-full rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] py-3 pl-11 pr-4 text-sm outline-none transition focus:border-gold"
           />
         </div>
@@ -132,6 +139,26 @@ export function ProductGrid({
           </button>
         ))}
       </div>
+
+      {/* Event category chips */}
+      {categories.length > 1 && (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {["All", ...categories].map((c) => (
+            <button
+              key={c}
+              type="button"
+              onClick={() => setCategory(c)}
+              className={`rounded-full border px-3.5 py-1 text-xs font-medium uppercase tracking-wide transition ${
+                category === c
+                  ? "border-gold bg-gold/15 text-gold"
+                  : "border-[var(--border)] text-[var(--fg-muted)] hover:border-gold"
+              }`}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Size + price filters */}
       <div className={`${showFilters ? "block" : "hidden"} sm:block`}>
@@ -196,7 +223,11 @@ export function ProductGrid({
         <p className="text-sm text-[var(--fg-muted)]">
           {filtered.length} product{filtered.length === 1 ? "" : "s"}
         </p>
-        {(query || brand !== "All" || size || maxPrice !== priceBounds.max) && (
+        {(query ||
+          brand !== "All" ||
+          category !== "All" ||
+          size ||
+          maxPrice !== priceBounds.max) && (
           <button
             type="button"
             onClick={resetAll}
@@ -209,25 +240,19 @@ export function ProductGrid({
 
       {/* Grid */}
       {filtered.length ? (
-        <motion.div
-          layout
-          className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        >
-          <AnimatePresence mode="popLayout">
-            {filtered.map((p) => (
+        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {filtered.map((p) => (
               <motion.div
                 key={p.id}
                 layout
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.25 }}
               >
                 <ProductCard product={p} />
               </motion.div>
             ))}
-          </AnimatePresence>
-        </motion.div>
+        </div>
       ) : (
         <div className="mt-16 text-center">
           <p className="font-display text-xl font-bold">No matches</p>

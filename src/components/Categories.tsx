@@ -12,7 +12,7 @@ export function Categories({ counts }: { counts: Record<string, number> }) {
       <SectionHeading
         eyebrow="Shop by brand"
         title="Categories"
-        subtitle="The brands runners and sneakerheads trust — curated and authentic."
+        subtitle="The spike brands sprinters, jumpers and distance runners trust — curated and authentic."
       />
 
       <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">

@@ -3,11 +3,11 @@ import { SectionHeading } from "./SectionHeading";
 import { ScrollReveal } from "./ScrollReveal";
 
 const STEPS = [
-  { icon: Search, title: "Browse sneakers", text: "Explore our curated authentic collection." },
+  { icon: Search, title: "Browse spikes", text: "Explore our curated authentic collection by brand and event." },
   { icon: Ruler, title: "Choose your size", text: "Pick from the available sizes on each pair." },
   { icon: MousePointerClick, title: "Click Buy Now", text: "We prepare your order message instantly." },
   { icon: Instagram, title: "Message us on Instagram", text: "Confirm details and payment by DM." },
-  { icon: PackageCheck, title: "Receive your sneakers", text: "Delivered anywhere in China in 2–5 days." },
+  { icon: PackageCheck, title: "Receive your spikes", text: "Delivered anywhere in China in 2–5 days." },
 ];
 
 export function HowItWorks() {
