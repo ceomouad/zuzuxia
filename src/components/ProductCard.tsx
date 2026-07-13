@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Instagram, X } from "lucide-react";
 import type { Product } from "@/lib/types";
@@ -10,6 +10,21 @@ import { openInstagramOrder } from "@/lib/instagram";
 
 export function ProductCard({ product }: { product: Product }) {
   const [open, setOpen] = useState(false);
+
+  // Lock background scroll while the quick-view is open so touch-scrolling
+  // stays inside the popup instead of moving the page behind it (phones).
+  // Keyed on `open` so scroll is restored the instant it closes.
+  useEffect(() => {
+    if (!open) return;
+    const { overflow, paddingRight } = document.body.style;
+    const scrollbar = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = "hidden";
+    if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`;
+    return () => {
+      document.body.style.overflow = overflow;
+      document.body.style.paddingRight = paddingRight;
+    };
+  }, [open]);
 
   return (
     <>
@@ -129,7 +144,7 @@ function QuickView({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 10 }}
         transition={{ type: "spring", stiffness: 260, damping: 26 }}
-        className="glass relative z-10 grid max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-3xl md:grid-cols-2"
+        className="glass relative z-10 flex max-h-[90vh] w-full max-w-4xl flex-col overflow-y-auto overscroll-contain rounded-3xl md:grid md:grid-cols-2 md:overflow-hidden"
       >
         <button
           type="button"
@@ -140,7 +155,7 @@ function QuickView({
           <X size={18} />
         </button>
 
-        <div className="flex flex-col bg-white">
+        <div className="flex shrink-0 flex-col bg-white">
           <div className="relative aspect-square w-full">
             <Image
               src={gallery[active] ?? gallery[0]}
@@ -177,7 +192,7 @@ function QuickView({
           )}
         </div>
 
-        <div className="flex flex-col gap-4 overflow-y-auto p-7">
+        <div className="flex flex-col gap-4 p-7 md:overflow-y-auto md:overscroll-contain">
           <div>
             <p className="eyebrow">{product.brand}</p>
             <h3 className="mt-1 font-display text-2xl font-bold">
