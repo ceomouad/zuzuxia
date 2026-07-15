@@ -139,7 +139,7 @@ def main():
             "priceLabel": new,
             "priceUsedLabel": used,
             "images": rel_images,
-            "description": f"Authentic {name}. " + BLURB[(brand, cat)] + " 100% genuine, delivered anywhere in China with fast, reliable Instagram support.",
+            "description": f"Authentic {name}. " + BLURB[(brand, cat)] + " 100% genuine, delivered anywhere in China with fast, reliable WhatsApp support.",
             "sizes": sizes_for(i),
             "featured": name in FEATURED,
             "createdAt_epoch": base + i * 3600,

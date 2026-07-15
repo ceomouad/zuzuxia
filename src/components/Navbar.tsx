@@ -6,7 +6,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Instagram, Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { SpikeMark } from "./SpikeMark";
-import { INSTAGRAM_URL, SITE } from "@/lib/config";
+import { WhatsAppIcon, TikTokIcon } from "./BrandIcons";
+import {
+  HAS_WHATSAPP,
+  INSTAGRAM_URL,
+  SITE,
+  TIKTOK_URL,
+  whatsappUrl,
+} from "@/lib/config";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -56,14 +63,34 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
-            <ThemeToggle />
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="hidden h-10 w-10 place-items-center rounded-full border border-[var(--border)] text-[var(--fg)] transition-colors hover:border-gold hover:text-gold sm:grid"
+            >
+              <Instagram size={18} />
+            </a>
+            {TIKTOK_URL && (
+              <a
+                href={TIKTOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="hidden h-10 w-10 place-items-center rounded-full border border-[var(--border)] text-[var(--fg)] transition-colors hover:border-gold hover:text-gold sm:grid"
+              >
+                <TikTokIcon size={17} />
+              </a>
+            )}
+            <ThemeToggle />
+            <a
+              href={HAS_WHATSAPP ? whatsappUrl() : INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden btn-gold md:inline-flex"
             >
-              <Instagram size={16} />
+              {HAS_WHATSAPP ? <WhatsAppIcon size={16} /> : <Instagram size={16} />}
               Order
             </a>
             <button
@@ -98,14 +125,39 @@ export function Navbar() {
                 </Link>
               ))}
               <a
-                href={INSTAGRAM_URL}
+                href={HAS_WHATSAPP ? whatsappUrl() : INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
                 className="btn-gold mt-2"
               >
-                <Instagram size={16} />
-                Order on Instagram
+                {HAS_WHATSAPP ? (
+                  <WhatsAppIcon size={16} />
+                ) : (
+                  <Instagram size={16} />
+                )}
+                {HAS_WHATSAPP ? "Order on WhatsApp" : "Order on Instagram"}
               </a>
+              <div className="mt-2 flex items-center gap-2">
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline flex-1"
+                >
+                  <Instagram size={16} /> Instagram
+                </a>
+                {TIKTOK_URL && (
+                  <a
+                    href={TIKTOK_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline flex-1"
+                  >
+                    <TikTokIcon size={16} /> TikTok
+                  </a>
+                )}
+              </div>
             </div>
           </motion.div>
         )}

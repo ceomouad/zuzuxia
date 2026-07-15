@@ -28,8 +28,10 @@ export default async function ShopPage({
           Shop Track Spikes
         </h1>
         <p className="mt-3 max-w-xl text-[var(--fg-muted)]">
-          Authentic pairs, ready to ship across China. Filter by brand, event,
-          size and price — then order in one tap on Instagram.
+          Authentic pairs, ready to ship across China — brand new and second
+          hand. Prices shown are starting prices; the final price depends on
+          condition and size, confirmed on WhatsApp. Filter by brand, event,
+          size and price, then order in one tap.
         </p>
       </div>
       <div className="mt-10">

@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Instagram, ShieldCheck, Truck } from "lucide-react";
-import { INSTAGRAM_URL } from "@/lib/config";
+import { HAS_WHATSAPP, INSTAGRAM_URL, whatsappUrl } from "@/lib/config";
+import { WhatsAppIcon } from "./BrandIcons";
 
 export function Hero({ heroImage }: { heroImage: string }) {
   return (
@@ -64,12 +65,20 @@ export function Hero({ heroImage }: { heroImage: string }) {
               Shop Now <ArrowRight size={16} />
             </Link>
             <a
-              href={INSTAGRAM_URL}
+              href={HAS_WHATSAPP ? whatsappUrl() : INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-outline"
             >
-              <Instagram size={16} /> Contact on Instagram
+              {HAS_WHATSAPP ? (
+                <>
+                  <WhatsAppIcon size={16} /> Chat on WhatsApp
+                </>
+              ) : (
+                <>
+                  <Instagram size={16} /> Contact on Instagram
+                </>
+              )}
             </a>
           </motion.div>
 

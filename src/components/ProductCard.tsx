@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Instagram, X } from "lucide-react";
 import type { Product } from "@/lib/types";
-import { formatPrice } from "@/lib/config";
-import { openInstagramOrder } from "@/lib/instagram";
+import { formatPrice, HAS_WHATSAPP } from "@/lib/config";
+import { openOrder } from "@/lib/order";
+import { WhatsAppIcon } from "./BrandIcons";
 
 export function ProductCard({ product }: { product: Product }) {
   const [open, setOpen] = useState(false);
@@ -66,13 +67,13 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
             <div className="shrink-0 text-right">
               <p className="font-display text-base font-bold leading-tight">
-                {product.priceLabel ?? formatPrice(product.price)}
+                {product.priceLabel ?? `From ${formatPrice(product.price)}`}
               </p>
               {(product.priceUsedLabel ?? product.priceUsed) != null && (
                 <p className="text-xs text-[var(--fg-muted)]">
-                  used{" "}
+                  2nd-hand{" "}
                   {product.priceUsedLabel ??
-                    formatPrice(product.priceUsed as number)}
+                    `from ${formatPrice(product.priceUsed as number)}`}
                 </p>
               )}
             </div>
@@ -117,15 +118,15 @@ function QuickView({
 }) {
   const [size, setSize] = useState<string | null>(product.sizes[0] ?? null);
   const [active, setActive] = useState(0);
-  const [copied, setCopied] = useState(false);
+  const [sent, setSent] = useState(false);
   const gallery = product.images.length
     ? product.images
     : ["/products/placeholder.jpg"];
 
   async function buy() {
-    await openInstagramOrder(product.name, size ?? undefined);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    await openOrder(product.name, size ?? undefined);
+    setSent(true);
+    setTimeout(() => setSent(false), 2500);
   }
 
   return (
@@ -200,17 +201,23 @@ function QuickView({
             </h3>
           </div>
 
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <span className="font-display text-2xl font-bold sm:text-3xl">
-              {product.priceLabel ?? formatPrice(product.price)}
-            </span>
-            {(product.priceUsedLabel ?? product.priceUsed) != null && (
-              <span className="text-sm text-[var(--fg-muted)]">
-                used{" "}
-                {product.priceUsedLabel ??
-                  formatPrice(product.priceUsed as number)}
+          <div>
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="font-display text-2xl font-bold sm:text-3xl">
+                {product.priceLabel ?? `From ${formatPrice(product.price)}`}
               </span>
-            )}
+              {(product.priceUsedLabel ?? product.priceUsed) != null && (
+                <span className="text-sm text-[var(--fg-muted)]">
+                  2nd-hand{" "}
+                  {product.priceUsedLabel ??
+                    `from ${formatPrice(product.priceUsed as number)}`}
+                </span>
+              )}
+            </div>
+            <p className="mt-1.5 text-xs text-[var(--fg-muted)]">
+              Starting price — final price depends on condition (brand new or
+              second hand) and size. We confirm the exact price on chat.
+            </p>
           </div>
 
           <p className="text-sm leading-relaxed text-[var(--fg-muted)]">
@@ -238,18 +245,27 @@ function QuickView({
           </div>
 
           <button type="button" onClick={buy} className="btn-gold mt-2 w-full">
-            {copied ? (
+            {sent ? (
               <>
-                <Check size={16} /> Message copied — opening Instagram
+                <Check size={16} />{" "}
+                {HAS_WHATSAPP
+                  ? "Opening WhatsApp…"
+                  : "Message copied — opening Instagram"}
+              </>
+            ) : HAS_WHATSAPP ? (
+              <>
+                <WhatsAppIcon size={16} /> Order on WhatsApp
               </>
             ) : (
               <>
-                <Instagram size={16} /> Buy Now on Instagram
+                <Instagram size={16} /> Order on Instagram
               </>
             )}
           </button>
           <p className="text-center text-xs text-[var(--fg-muted)]">
-            We&apos;ll open our DM and copy your order message to paste.
+            {HAS_WHATSAPP
+              ? "Opens WhatsApp with your order message ready to send."
+              : "We’ll open our DM and copy your order message to paste."}
           </p>
         </div>
       </motion.div>

@@ -1,6 +1,7 @@
-import { Globe, MessageCircle, ShieldCheck } from "lucide-react";
+import { Globe, ShieldCheck } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
 import { ScrollReveal } from "./ScrollReveal";
+import { WhatsAppIcon } from "./BrandIcons";
 
 const POINTS = [
   {
@@ -10,13 +11,13 @@ const POINTS = [
   },
   {
     icon: ShieldCheck,
-    title: "Authentic guaranteed",
-    text: "Every pair is 100% genuine, sourced and verified before it ships.",
+    title: "New & second hand",
+    text: "Every pair is 100% genuine — pick brand new or a great-value used pair.",
   },
   {
-    icon: MessageCircle,
-    title: "Support on Instagram",
-    text: "Real people, fast replies. Order and track everything by DM.",
+    icon: WhatsAppIcon,
+    title: "Support on WhatsApp",
+    text: "Real people, fast replies. Order and track everything on WhatsApp.",
   },
 ];
 
@@ -29,7 +30,7 @@ export function About() {
             align="left"
             eyebrow="Why us"
             title="Why Zu Zu Xia?"
-            subtitle="We help athletes and foreigners living in China buy authentic track & field spikes quickly and easily — brand new or second hand. No complicated Chinese apps, no language barriers, and reliable customer support through Instagram."
+            subtitle="We help athletes and foreigners living in China buy authentic track & field spikes quickly and easily — brand new or second hand. No complicated Chinese apps, no language barriers, and reliable customer support through WhatsApp."
           />
         </div>
         <div className="grid gap-4">

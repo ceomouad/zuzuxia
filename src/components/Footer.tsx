@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { Instagram } from "lucide-react";
 import { SpikeMark } from "./SpikeMark";
-import { INSTAGRAM_URL, SITE } from "@/lib/config";
+import { WhatsAppIcon, TikTokIcon } from "./BrandIcons";
+import {
+  HAS_WHATSAPP,
+  INSTAGRAM_URL,
+  SITE,
+  TIKTOK_URL,
+  whatsappUrl,
+} from "@/lib/config";
 
 export function Footer() {
   return (
@@ -52,15 +59,40 @@ export function Footer() {
           <h3 className="text-sm font-semibold uppercase tracking-wider">
             Contact
           </h3>
+          <p className="mt-3 text-sm text-[var(--fg-muted)]">
+            Order &amp; customer support on WhatsApp. Follow us for drops.
+          </p>
           <a
-            href={INSTAGRAM_URL}
+            href={HAS_WHATSAPP ? whatsappUrl() : INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-gold mt-4"
           >
-            <Instagram size={16} />
-            Instagram DM
+            {HAS_WHATSAPP ? <WhatsAppIcon size={16} /> : <Instagram size={16} />}
+            {HAS_WHATSAPP ? "Chat on WhatsApp" : "Instagram DM"}
           </a>
+          <div className="mt-4 flex items-center gap-2">
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="grid h-10 w-10 place-items-center rounded-full border border-[var(--border)] transition-colors hover:border-gold hover:text-gold"
+            >
+              <Instagram size={18} />
+            </a>
+            {TIKTOK_URL && (
+              <a
+                href={TIKTOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="grid h-10 w-10 place-items-center rounded-full border border-[var(--border)] transition-colors hover:border-gold hover:text-gold"
+              >
+                <TikTokIcon size={17} />
+              </a>
+            )}
+          </div>
         </div>
       </div>
 

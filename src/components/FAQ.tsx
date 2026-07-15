@@ -6,13 +6,21 @@ import { Plus } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
 
 const FAQS = [
-  { q: "How long is shipping?", a: "2–5 days anywhere in China." },
-  { q: "Are the shoes authentic?", a: "Yes — every pair is 100% genuine and verified before it ships." },
+  {
+    q: "How much do the spikes cost?",
+    a: "The price shown on each pair is a starting price. The final price depends on the model, the condition (brand new or second hand) and the size — we confirm the exact price with you on WhatsApp before you pay.",
+  },
+  {
+    q: "Do you sell new and second-hand spikes?",
+    a: "Both. Every pair lists a starting price for new and an approximate second-hand price, so you can pick what fits your budget.",
+  },
   {
     q: "How do I order?",
-    a: "Click Buy Now on any product and message us on Instagram. We reply fast and guide you through payment and delivery.",
+    a: "Click Buy Now on any product to message us on WhatsApp (or DM us on Instagram). We reply fast and confirm price, size, payment and delivery.",
   },
-  { q: "Can I return shoes?", a: "Yes, within 7 days if unworn and in original condition." },
+  { q: "How long is shipping?", a: "2–5 days anywhere in China." },
+  { q: "Are the spikes authentic?", a: "Yes — every pair is 100% genuine and verified before it ships." },
+  { q: "Can I return them?", a: "Yes, within 7 days if unworn and in original condition." },
 ];
 
 export function FAQ() {
