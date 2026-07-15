@@ -33,61 +33,52 @@ export function ProductCard({ product }: { product: Product }) {
         layout
         whileHover={{ y: -6 }}
         transition={{ type: "spring", stiffness: 300, damping: 24 }}
-        className="card group flex flex-col overflow-hidden"
+        className="group flex flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] transition-shadow hover:shadow-soft"
       >
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="relative aspect-[4/3] w-full overflow-hidden bg-white"
+          className="relative aspect-square w-full overflow-hidden bg-[var(--bg-sunken)]"
           aria-label={`View ${product.name}`}
         >
           {product.featured && (
-            <span className="absolute left-3 top-3 z-10 rounded-full bg-gold px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-black">
+            <span className="absolute left-0 top-3 z-10 bg-brand px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
               Featured
             </span>
           )}
+          <span className="pointer-events-none absolute inset-x-0 bottom-0 z-10 translate-y-full bg-[var(--fg)] py-2.5 text-center text-xs font-bold uppercase tracking-widest text-[var(--bg)] transition-transform duration-300 group-hover:translate-y-0">
+            Quick view
+          </span>
           <Image
             src={product.images[0] ?? "/products/placeholder.jpg"}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+            className="object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
           />
         </button>
 
         <div className="flex flex-1 flex-col gap-3 p-5">
-          <div className="flex items-start justify-between gap-2">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-gold">
-                {product.brand}
-              </p>
-              <h3 className="mt-1 font-display text-base font-bold leading-snug">
-                {product.name}
-              </h3>
-            </div>
-            <div className="shrink-0 text-right">
-              <p className="font-display text-base font-bold leading-tight">
-                {product.priceLabel ?? `From ${formatPrice(product.price)}`}
-              </p>
-              {(product.priceUsedLabel ?? product.priceUsed) != null && (
-                <p className="text-xs text-[var(--fg-muted)]">
-                  2nd-hand{" "}
-                  {product.priceUsedLabel ??
-                    `from ${formatPrice(product.priceUsed as number)}`}
-                </p>
-              )}
-            </div>
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-widest text-brand">
+              {product.brand}
+            </p>
+            <h3 className="mt-1 font-display text-lg uppercase leading-[1.05] tracking-tight">
+              {product.name}
+            </h3>
           </div>
 
-          <div className="flex flex-wrap gap-1.5">
-            {product.sizes.slice(0, 6).map((s) => (
-              <span
-                key={s}
-                className="rounded-md border border-[var(--border)] px-2 py-0.5 text-[11px] text-[var(--fg-muted)]"
-              >
-                {s}
-              </span>
-            ))}
+          <div className="flex items-baseline justify-between gap-2">
+            <p className="text-base font-extrabold">
+              {product.priceLabel ?? `From ${formatPrice(product.price)}`}
+            </p>
+            {(product.priceUsedLabel ?? product.priceUsed) != null && (
+              <p className="text-xs font-medium text-[var(--fg-muted)]">
+                2nd-hand{" "}
+                {product.priceUsedLabel ??
+                  `from ${formatPrice(product.priceUsed as number)}`}
+              </p>
+            )}
           </div>
 
           <button
@@ -176,8 +167,8 @@ function QuickView({
                   aria-label={`View colorway ${i + 1}`}
                   className={`relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border transition ${
                     active === i
-                      ? "border-gold ring-1 ring-gold"
-                      : "border-black/10 hover:border-gold/60"
+                      ? "border-brand ring-1 ring-brand"
+                      : "border-black/10 hover:border-brand/60"
                   }`}
                 >
                   <Image
@@ -234,8 +225,8 @@ function QuickView({
                   onClick={() => setSize(s)}
                   className={`min-w-[3rem] rounded-xl border px-3 py-2 text-sm font-medium transition ${
                     size === s
-                      ? "border-gold bg-gold text-black"
-                      : "border-[var(--border)] hover:border-gold"
+                      ? "border-brand bg-brand text-white"
+                      : "border-[var(--border)] hover:border-brand"
                   }`}
                 >
                   {s}
@@ -244,7 +235,7 @@ function QuickView({
             </div>
           </div>
 
-          <button type="button" onClick={buy} className="btn-gold mt-2 w-full">
+          <button type="button" onClick={buy} className="btn-brand mt-2 w-full">
             {sent ? (
               <>
                 <Check size={16} />{" "}

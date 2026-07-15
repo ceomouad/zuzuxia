@@ -97,7 +97,7 @@ export function ProductForm({
   }
 
   const inputCls =
-    "w-full rounded-xl border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm outline-none focus:border-gold";
+    "w-full rounded-xl border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm outline-none focus:border-brand";
 
   return (
     <div className="fixed inset-0 z-[70] grid place-items-center p-4">
@@ -235,7 +235,7 @@ export function ProductForm({
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
-              className="grid h-20 w-20 place-items-center rounded-xl border border-dashed border-[var(--border)] text-[var(--fg-muted)] transition hover:border-gold hover:text-gold"
+              className="grid h-20 w-20 place-items-center rounded-xl border border-dashed border-[var(--border)] text-[var(--fg-muted)] transition hover:border-brand hover:text-brand"
             >
               {uploading ? (
                 <Loader2 className="animate-spin" size={20} />
@@ -260,7 +260,7 @@ export function ProductForm({
             type="checkbox"
             checked={Boolean(form.featured)}
             onChange={(e) => set("featured", e.target.checked)}
-            className="h-4 w-4 accent-gold"
+            className="h-4 w-4 accent-brand"
           />
           Show in Featured Products
         </label>
@@ -271,7 +271,7 @@ export function ProductForm({
           <button type="button" onClick={onClose} className="btn-outline">
             Cancel
           </button>
-          <button type="submit" disabled={saving} className="btn-gold">
+          <button type="submit" disabled={saving} className="btn-brand">
             {saving && <Loader2 className="animate-spin" size={16} />}
             {initial ? "Save changes" : "Add product"}
           </button>

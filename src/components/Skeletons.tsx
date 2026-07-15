@@ -1,3 +1,5 @@
+import { BrandLogo } from "./BrandLogo";
+
 export function ProductCardSkeleton() {
   return (
     <div className="card overflow-hidden">
@@ -30,11 +32,11 @@ export function BrandLoader() {
   return (
     <div className="grid min-h-[60vh] place-items-center">
       <div className="flex flex-col items-center gap-4">
-        <span className="grid h-16 w-16 animate-pulse place-items-center rounded-2xl bg-gold font-display text-3xl font-black text-black">
-          Z
-        </span>
+        <BrandLogo className="h-16 w-16 animate-pulse" />
         <div className="skeleton h-1.5 w-40 overflow-hidden rounded-full" />
-        <p className="text-sm text-[var(--fg-muted)]">Loading the collection…</p>
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--fg-muted)]">
+          Loading…
+        </p>
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ export function Reviews() {
         {REVIEWS.map((r, i) => (
           <ScrollReveal key={r.name} delay={i * 0.08}>
             <figure className="card h-full p-7">
-              <div className="flex gap-1 text-gold">
+              <div className="flex gap-1 text-brand">
                 {Array.from({ length: 5 }).map((_, j) => (
                   <Star key={j} size={18} fill="currentColor" />
                 ))}
@@ -30,7 +30,7 @@ export function Reviews() {
                 “{r.quote}”
               </blockquote>
               <figcaption className="mt-6 flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-gold/15 font-bold text-gold">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-brand/15 font-bold text-brand">
                   {r.name.charAt(0)}
                 </span>
                 <span>

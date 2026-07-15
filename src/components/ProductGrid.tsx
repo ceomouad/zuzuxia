@@ -100,13 +100,13 @@ export function ProductGrid({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search spikes or brands…"
-            className="w-full rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] py-3 pl-11 pr-4 text-sm outline-none transition focus:border-gold"
+            className="w-full rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] py-3 pl-11 pr-4 text-sm outline-none transition focus:border-brand"
           />
         </div>
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value as Sort)}
-          className="rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-3 text-sm outline-none focus:border-gold"
+          className="rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-3 text-sm outline-none focus:border-brand"
         >
           <option value="featured">Sort: Featured</option>
           <option value="price-asc">Price: Low to High</option>
@@ -131,8 +131,8 @@ export function ProductGrid({
             onClick={() => setBrand(b)}
             className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
               brand === b
-                ? "border-gold bg-gold text-black"
-                : "border-[var(--border)] hover:border-gold"
+                ? "border-brand bg-brand text-white"
+                : "border-[var(--border)] hover:border-brand"
             }`}
           >
             {b}
@@ -150,8 +150,8 @@ export function ProductGrid({
               onClick={() => setCategory(c)}
               className={`rounded-full border px-3.5 py-1 text-xs font-medium uppercase tracking-wide transition ${
                 category === c
-                  ? "border-gold bg-gold/15 text-gold"
-                  : "border-[var(--border)] text-[var(--fg-muted)] hover:border-gold"
+                  ? "border-brand bg-brand/15 text-brand"
+                  : "border-[var(--border)] text-[var(--fg-muted)] hover:border-brand"
               }`}
             >
               {c}
@@ -173,8 +173,8 @@ export function ProductGrid({
                 onClick={() => setSize(null)}
                 className={`rounded-lg border px-3 py-1.5 text-sm transition ${
                   size === null
-                    ? "border-gold bg-gold text-black"
-                    : "border-[var(--border)] hover:border-gold"
+                    ? "border-brand bg-brand text-white"
+                    : "border-[var(--border)] hover:border-brand"
                 }`}
               >
                 Any
@@ -186,8 +186,8 @@ export function ProductGrid({
                   onClick={() => setSize(s)}
                   className={`rounded-lg border px-3 py-1.5 text-sm transition ${
                     size === s
-                      ? "border-gold bg-gold text-black"
-                      : "border-[var(--border)] hover:border-gold"
+                      ? "border-brand bg-brand text-white"
+                      : "border-[var(--border)] hover:border-brand"
                   }`}
                 >
                   {s}
@@ -201,7 +201,7 @@ export function ProductGrid({
               <p className="text-xs font-semibold uppercase tracking-wider text-[var(--fg-muted)]">
                 Max price
               </p>
-              <span className="text-sm font-semibold text-gold">
+              <span className="text-sm font-semibold text-brand">
                 {formatPrice(maxPrice)}
               </span>
             </div>
@@ -212,7 +212,7 @@ export function ProductGrid({
               step={5}
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
-              className="w-full accent-gold"
+              className="w-full accent-brand"
             />
           </div>
         </div>
@@ -231,7 +231,7 @@ export function ProductGrid({
           <button
             type="button"
             onClick={resetAll}
-            className="inline-flex items-center gap-1 text-sm text-gold hover:underline"
+            className="inline-flex items-center gap-1 text-sm text-brand hover:underline"
           >
             <X size={14} /> Clear filters
           </button>
@@ -259,7 +259,7 @@ export function ProductGrid({
           <p className="mt-2 text-sm text-[var(--fg-muted)]">
             Try clearing a filter or searching a different brand.
           </p>
-          <button type="button" onClick={resetAll} className="btn-gold mt-6">
+          <button type="button" onClick={resetAll} className="btn-brand mt-6">
             Reset filters
           </button>
         </div>

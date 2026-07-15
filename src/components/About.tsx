@@ -37,7 +37,7 @@ export function About() {
           {POINTS.map((p, i) => (
             <ScrollReveal key={p.title} delay={i * 0.08}>
               <div className="card flex items-start gap-4 p-6">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gold/15 text-gold">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand/15 text-brand">
                   <p.icon size={22} />
                 </span>
                 <div>

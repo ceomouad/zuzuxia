@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
+import { Marquee } from "@/components/Marquee";
 import { Categories } from "@/components/Categories";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
 import { About } from "@/components/About";
@@ -31,6 +32,7 @@ export default async function HomePage() {
     <main>
       <Navbar />
       <Hero heroImage={heroImage} />
+      <Marquee />
       <Categories counts={counts} />
       <FeaturedProducts products={featuredList} />
       <About />

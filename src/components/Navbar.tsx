@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Instagram, Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
-import { SpikeMark } from "./SpikeMark";
+import { BrandLogo } from "./BrandLogo";
 import { WhatsAppIcon, TikTokIcon } from "./BrandIcons";
 import {
   HAS_WHATSAPP,
@@ -16,8 +16,8 @@ import {
 } from "@/lib/config";
 
 const LINKS = [
-  { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
+  { href: "/#categories", label: "Brands" },
   { href: "/#about", label: "About" },
   { href: "/#faq", label: "FAQ" },
 ];
@@ -37,25 +37,25 @@ export function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50">
       <div
         className={`transition-all duration-300 ${
-          scrolled ? "glass shadow-soft" : "bg-transparent"
+          scrolled
+            ? "glass shadow-soft"
+            : "bg-transparent border-b border-transparent"
         }`}
       >
         <nav className="container-x flex h-16 items-center justify-between md:h-20">
-          <Link href="/" className="group flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-gold text-black transition-transform group-hover:rotate-12">
-              <SpikeMark className="h-6 w-6" />
-            </span>
-            <span className="font-display text-lg font-bold tracking-tight">
+          <Link href="/" className="group flex items-center gap-2.5">
+            <BrandLogo className="h-9 w-9 transition-transform group-hover:scale-105 group-hover:-rotate-6" />
+            <span className="font-display text-xl uppercase tracking-tight">
               {SITE.name}
             </span>
           </Link>
 
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-9 md:flex">
             {LINKS.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="relative text-sm font-medium text-[var(--fg-muted)] transition-colors hover:text-[var(--fg)] after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:bg-gold after:transition-all hover:after:w-full"
+                className="relative text-sm font-bold uppercase tracking-wide text-[var(--fg-muted)] transition-colors hover:text-[var(--fg)] after:absolute after:-bottom-1.5 after:left-0 after:h-[3px] after:w-0 after:bg-brand after:transition-all hover:after:w-full"
               >
                 {l.label}
               </Link>
@@ -68,7 +68,7 @@ export function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="hidden h-10 w-10 place-items-center rounded-full border border-[var(--border)] text-[var(--fg)] transition-colors hover:border-gold hover:text-gold sm:grid"
+              className="hidden h-10 w-10 place-items-center rounded-full text-[var(--fg-muted)] transition-colors hover:text-brand sm:grid"
             >
               <Instagram size={18} />
             </a>
@@ -78,7 +78,7 @@ export function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"
-                className="hidden h-10 w-10 place-items-center rounded-full border border-[var(--border)] text-[var(--fg)] transition-colors hover:border-gold hover:text-gold sm:grid"
+                className="hidden h-10 w-10 place-items-center rounded-full text-[var(--fg-muted)] transition-colors hover:text-brand sm:grid"
               >
                 <TikTokIcon size={17} />
               </a>
@@ -88,7 +88,7 @@ export function Navbar() {
               href={HAS_WHATSAPP ? whatsappUrl() : INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden btn-gold md:inline-flex"
+              className="hidden btn-brand md:inline-flex"
             >
               {HAS_WHATSAPP ? <WhatsAppIcon size={16} /> : <Instagram size={16} />}
               Order
@@ -111,7 +111,7 @@ export function Navbar() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            className="glass container-x mx-4 mt-2 rounded-3xl p-4 md:hidden"
+            className="glass container-x mx-4 mt-2 rounded-2xl p-4 md:hidden"
           >
             <div className="flex flex-col gap-1">
               {LINKS.map((l) => (
@@ -119,7 +119,7 @@ export function Navbar() {
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-4 py-3 text-base font-medium transition-colors hover:bg-[var(--border)]"
+                  className="rounded-xl px-4 py-3 text-base font-bold uppercase tracking-wide transition-colors hover:bg-[var(--border)]"
                 >
                   {l.label}
                 </Link>
@@ -129,7 +129,7 @@ export function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
-                className="btn-gold mt-2"
+                className="btn-brand mt-2"
               >
                 {HAS_WHATSAPP ? (
                   <WhatsAppIcon size={16} />

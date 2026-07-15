@@ -25,10 +25,10 @@ export function HowItWorks() {
           {STEPS.map((s, i) => (
             <ScrollReveal key={s.title} delay={i * 0.08}>
               <div className="card relative flex h-full flex-col items-center gap-3 p-6 text-center">
-                <span className="absolute -top-3 right-4 font-display text-sm font-bold text-gold">
+                <span className="absolute -top-3 right-4 font-display text-sm font-bold text-brand">
                   0{i + 1}
                 </span>
-                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gold/15 text-gold">
+                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-brand/15 text-brand">
                   <s.icon size={24} />
                 </span>
                 <h3 className="font-display text-base font-bold">{s.title}</h3>

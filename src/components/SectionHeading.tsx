@@ -21,9 +21,7 @@ export function SectionHeading({
       }`}
     >
       {eyebrow && <span className="eyebrow">{eyebrow}</span>}
-      <h2 className="font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-        {title}
-      </h2>
+      <h2 className="display text-4xl sm:text-5xl md:text-6xl">{title}</h2>
       {subtitle && (
         <p className="max-w-2xl text-base text-[var(--fg-muted)] sm:text-lg">
           {subtitle}

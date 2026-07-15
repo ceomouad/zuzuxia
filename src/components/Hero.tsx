@@ -7,61 +7,69 @@ import { ArrowRight, Instagram, ShieldCheck, Truck } from "lucide-react";
 import { HAS_WHATSAPP, INSTAGRAM_URL, whatsappUrl } from "@/lib/config";
 import { WhatsAppIcon } from "./BrandIcons";
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
 export function Hero({ heroImage }: { heroImage: string }) {
   return (
     <section className="relative flex min-h-[100svh] items-center overflow-hidden pt-16">
       {/* Ambient background */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -left-40 top-0 h-[36rem] w-[36rem] rounded-full bg-gold/20 blur-3xl" />
-        <div className="absolute -right-32 bottom-0 h-[30rem] w-[30rem] rounded-full bg-gold/10 blur-3xl" />
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "linear-gradient(var(--fg) 1px, transparent 1px), linear-gradient(90deg, var(--fg) 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
-          }}
-        />
+        <div className="grid-texture absolute inset-0 opacity-60" />
+        <div className="absolute -right-40 top-1/4 h-[42rem] w-[42rem] rounded-full bg-brand/25 blur-[120px]" />
+        <div className="absolute -left-40 bottom-0 h-[26rem] w-[26rem] rounded-full bg-brand/10 blur-[100px]" />
       </div>
 
-      <div className="container-x grid items-center gap-12 py-16 lg:grid-cols-2">
-        <div>
+      <div className="container-x grid items-center gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="relative z-10">
           <motion.span
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium"
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-1.5 text-xs font-bold uppercase tracking-widest"
           >
-            <span className="h-2 w-2 rounded-full bg-gold" />
-            Delivering nationwide across China
+            <span className="h-2 w-2 rounded-full bg-brand" />
+            Authentic · Delivered nationwide
           </motion.span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="mt-5 font-display text-5xl font-black leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl"
-          >
-            Premium Track Spikes <span className="gold-text">in China</span>
-          </motion.h1>
+          <h1 className="display mt-5 text-[clamp(3.2rem,9vw,7rem)]">
+            {["Track spikes", "built to"].map((line, i) => (
+              <motion.span
+                key={line}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease, delay: 0.05 + i * 0.08 }}
+                className="block"
+              >
+                {line}
+              </motion.span>
+            ))}
+            <motion.span
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease, delay: 0.21 }}
+              className="block text-brand"
+            >
+              fly.
+            </motion.span>
+          </h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-6 max-w-lg text-lg text-[var(--fg-muted)]"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-6 max-w-md text-lg text-[var(--fg-muted)]"
           >
-            Authentic Nike, Adidas, Asics &amp; Puma track &amp; field spikes —
-            brand new and second hand — delivered all across China.
+            Authentic Nike, Adidas, Asics &amp; Puma spikes — brand new and second
+            hand — shipped anywhere in China for athletes, students &amp; expats.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
             className="mt-8 flex flex-wrap items-center gap-3"
           >
-            <Link href="/shop" className="btn-primary">
+            <Link href="/shop" className="btn-brand">
               Shop Now <ArrowRight size={16} />
             </Link>
             <a
@@ -72,11 +80,11 @@ export function Hero({ heroImage }: { heroImage: string }) {
             >
               {HAS_WHATSAPP ? (
                 <>
-                  <WhatsAppIcon size={16} /> Chat on WhatsApp
+                  <WhatsAppIcon size={16} /> Chat to order
                 </>
               ) : (
                 <>
-                  <Instagram size={16} /> Contact on Instagram
+                  <Instagram size={16} /> Contact us
                 </>
               )}
             </a>
@@ -85,41 +93,65 @@ export function Hero({ heroImage }: { heroImage: string }) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-10 flex flex-wrap gap-6 text-sm text-[var(--fg-muted)]"
+            transition={{ duration: 0.6, delay: 0.55 }}
+            className="mt-9 flex flex-wrap gap-x-8 gap-y-3 text-sm font-semibold uppercase tracking-wide text-[var(--fg-muted)]"
           >
             <span className="inline-flex items-center gap-2">
-              <ShieldCheck size={18} className="text-gold" /> 100% Authentic
+              <ShieldCheck size={18} className="text-brand" /> 100% Authentic
             </span>
             <span className="inline-flex items-center gap-2">
-              <Truck size={18} className="text-gold" /> 2–5 day delivery
+              <Truck size={18} className="text-brand" /> 2–5 day delivery
             </span>
           </motion.div>
         </div>
 
+        {/* Product on a logo-echoing blue disc */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
-          animate={{ opacity: 1, scale: 1, rotate: -6 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-lg"
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, ease }}
+          className="relative mx-auto flex w-full max-w-xl items-center justify-center"
         >
-          <div className="absolute inset-0 -z-10 rounded-[3rem] bg-gradient-to-br from-gold/30 to-transparent blur-2xl" />
-          <motion.div
-            animate={{ y: [0, -14, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="glass relative rounded-[2.5rem] p-6 shadow-soft"
-          >
-            <div className="relative aspect-[4/3] w-full">
+          <div className="relative aspect-square w-full">
+            {/* Speed rings */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand to-brand-dark shadow-[0_40px_120px_-30px_rgba(14,144,236,0.7)]" />
+            <div className="absolute inset-[6%] rounded-full border border-white/20" />
+            <div className="absolute inset-[14%] rounded-full border border-white/10" />
+
+            {/* Diagonal speed streaks */}
+            <div className="absolute inset-0 overflow-hidden rounded-full">
+              {[38, 52, 66].map((top, i) => (
+                <motion.span
+                  key={top}
+                  initial={{ x: "-120%" }}
+                  animate={{ x: "140%" }}
+                  transition={{
+                    duration: 2.2,
+                    repeat: Infinity,
+                    delay: i * 0.4,
+                    ease: "easeInOut",
+                  }}
+                  style={{ top: `${top}%` }}
+                  className="absolute left-0 h-[3px] w-1/2 rounded-full bg-white/40"
+                />
+              ))}
+            </div>
+
+            <motion.div
+              animate={{ y: [0, -16, 0], rotate: [-8, -6, -8] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute inset-[8%] z-10"
+            >
               <Image
                 src={heroImage}
                 alt="Featured track spike"
                 fill
                 priority
                 sizes="(max-width: 1024px) 90vw, 40vw"
-                className="object-contain drop-shadow-2xl"
+                className="object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)]"
               />
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

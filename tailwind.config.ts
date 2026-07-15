@@ -8,21 +8,31 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        gold: {
-          DEFAULT: "#D4AF37",
-          light: "#E7C868",
-          dark: "#B8942A",
+        // Zu Zu Xia electric blue (from the leaping-athlete logo)
+        brand: {
+          50: "#EAF6FE",
+          100: "#D0EBFD",
+          200: "#A6D8FB",
+          300: "#6FBEF8",
+          400: "#3BA4F4",
+          light: "#3BA4F4",
+          DEFAULT: "#0E90EC",
+          500: "#0E90EC",
+          dark: "#0A6FBE",
+          600: "#0A6FBE",
+          700: "#0A5896",
+          900: "#0A3A63",
         },
-        ink: "#0A0A0A",
-        cloud: "#F8F8F8",
+        ink: "#0A0A0B",
+        cloud: "#F5F7FA",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "var(--font-sans)", "sans-serif"],
       },
       boxShadow: {
-        soft: "0 10px 40px -12px rgba(0,0,0,0.18)",
-        glow: "0 0 0 1px rgba(212,175,55,0.35), 0 12px 40px -8px rgba(212,175,55,0.35)",
+        soft: "0 10px 40px -12px rgba(10,20,40,0.18)",
+        glow: "0 0 0 1px rgba(14,144,236,0.35), 0 14px 42px -10px rgba(14,144,236,0.55)",
       },
       backdropBlur: {
         xs: "2px",

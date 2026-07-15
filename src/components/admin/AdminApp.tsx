@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/config";
+import { BrandLogo } from "../BrandLogo";
 import { ProductForm } from "./ProductForm";
 
 export function AdminApp() {
@@ -30,7 +31,7 @@ export function AdminApp() {
   if (authed === null) {
     return (
       <div className="grid min-h-screen place-items-center">
-        <Loader2 className="animate-spin text-gold" size={28} />
+        <Loader2 className="animate-spin text-brand" size={28} />
       </div>
     );
   }
@@ -78,10 +79,10 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
         className="card w-full max-w-sm p-8"
       >
         <div className="flex flex-col items-center text-center">
-          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gold font-display text-2xl font-black text-black">
-            Z
-          </span>
-          <h1 className="mt-4 font-display text-2xl font-bold">Admin Access</h1>
+          <BrandLogo className="h-14 w-14" />
+          <h1 className="mt-4 font-display text-2xl uppercase tracking-tight">
+            Admin Access
+          </h1>
           <p className="mt-1 text-sm text-[var(--fg-muted)]">
             Enter your password to manage products.
           </p>
@@ -98,7 +99,7 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg)] py-3 pl-9 pr-3 text-sm outline-none focus:border-gold"
+            className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg)] py-3 pl-9 pr-3 text-sm outline-none focus:border-brand"
           />
         </div>
 
@@ -107,14 +108,14 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
         <button
           type="submit"
           disabled={loading}
-          className="btn-gold mt-5 w-full"
+          className="btn-brand mt-5 w-full"
         >
           {loading && <Loader2 className="animate-spin" size={16} />}
           Sign in
         </button>
         <Link
           href="/"
-          className="mt-4 block text-center text-xs text-[var(--fg-muted)] hover:text-gold"
+          className="mt-4 block text-center text-xs text-[var(--fg-muted)] hover:text-brand"
         >
           ← Back to store
         </Link>
@@ -171,16 +172,16 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
       <header className="glass sticky top-0 z-40 border-b border-[var(--border)]">
         <div className="container-x flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gold font-display text-sm font-black text-black">
-              Z
+            <BrandLogo className="h-8 w-8" />
+            <span className="font-display text-lg uppercase tracking-tight">
+              Admin
             </span>
-            <span className="font-display font-bold">Admin</span>
           </Link>
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => setCreating(true)}
-              className="btn-gold"
+              className="btn-brand"
             >
               <Plus size={16} /> Add product
             </button>
@@ -213,7 +214,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
               {loading ? (
                 <tr>
                   <td colSpan={5} className="px-4 py-10 text-center">
-                    <Loader2 className="mx-auto animate-spin text-gold" />
+                    <Loader2 className="mx-auto animate-spin text-brand" />
                   </td>
                 </tr>
               ) : (
@@ -238,7 +239,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                           {p.featured && (
                             <Star
                               size={14}
-                              className="text-gold"
+                              className="text-brand"
                               fill="currentColor"
                             />
                           )}
@@ -260,7 +261,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                         <button
                           type="button"
                           onClick={() => setEditing(p)}
-                          className="grid h-9 w-9 place-items-center rounded-lg border border-[var(--border)] hover:border-gold hover:text-gold"
+                          className="grid h-9 w-9 place-items-center rounded-lg border border-[var(--border)] hover:border-brand hover:text-brand"
                           aria-label="Edit"
                         >
                           <Pencil size={15} />

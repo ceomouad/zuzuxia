@@ -3,25 +3,29 @@
 @tailwind utilities;
 
 :root {
-  --bg: #f8f8f8;
+  --bg: #f5f7fa;
   --bg-elevated: #ffffff;
-  --fg: #0a0a0a;
-  --fg-muted: #5c5c5c;
-  --border: rgba(10, 10, 10, 0.08);
-  --glass: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.5);
-  --gold: #d4af37;
+  --bg-sunken: #eef1f6;
+  --fg: #0a0a0b;
+  --fg-muted: #5a6472;
+  --border: rgba(10, 20, 40, 0.1);
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --brand: #0e90ec;
+  --brand-ink: #ffffff;
 }
 
 .dark {
-  --bg: #070707;
-  --bg-elevated: #121214;
-  --fg: #f5f5f5;
-  --fg-muted: #a1a1a1;
+  --bg: #06080c;
+  --bg-elevated: #0e1219;
+  --bg-sunken: #04060a;
+  --fg: #f4f7fb;
+  --fg-muted: #93a0b2;
   --border: rgba(255, 255, 255, 0.1);
-  --glass: rgba(20, 20, 22, 0.55);
+  --glass: rgba(10, 14, 22, 0.62);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --gold: #e7c868;
+  --brand: #35a6ff;
+  --brand-ink: #04121f;
 }
 
 @layer base {
@@ -35,16 +39,15 @@
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: var(--gold);
-    color: #0a0a0a;
+    background: var(--brand);
+    color: var(--brand-ink);
   }
-  /* Slim, on-brand scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    background: color-mix(in srgb, var(--gold) 60%, transparent);
+    background: color-mix(in srgb, var(--brand) 55%, transparent);
     border-radius: 999px;
     border: 3px solid var(--bg);
   }
@@ -53,35 +56,62 @@
 @layer components {
   .glass {
     background: var(--glass);
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(18px) saturate(170%);
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
     border: 1px solid var(--glass-border);
   }
   .container-x {
-    @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+    @apply mx-auto w-full max-w-[88rem] px-5 sm:px-8;
   }
-  .gold-text {
-    color: var(--gold);
+  .brand-text {
+    color: var(--brand);
+  }
+  /* Big athletic display headline — condensed, tight, uppercase */
+  .display {
+    @apply font-display uppercase leading-[0.92] tracking-[-0.01em];
   }
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-300 active:scale-[0.97];
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.8rem] font-bold uppercase tracking-[0.08em] transition-all duration-300 active:scale-[0.97];
   }
   .btn-primary {
     @apply btn bg-[var(--fg)] text-[var(--bg)] hover:opacity-90 hover:shadow-soft;
   }
-  .btn-gold {
-    @apply btn bg-gold text-black hover:bg-gold-light hover:shadow-glow;
+  .btn-brand {
+    @apply btn bg-brand text-white hover:bg-brand-dark hover:shadow-glow;
   }
   .btn-outline {
-    @apply btn border border-[var(--border)] bg-transparent text-[var(--fg)] hover:border-gold hover:text-gold;
+    @apply btn border-2 border-[var(--fg)] bg-transparent text-[var(--fg)] hover:bg-[var(--fg)] hover:text-[var(--bg)];
   }
   .card {
     background: var(--bg-elevated);
     border: 1px solid var(--border);
-    @apply rounded-3xl;
+    @apply rounded-2xl;
   }
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.25em] text-gold;
+    @apply text-xs font-bold uppercase tracking-[0.28em] text-brand;
+  }
+  /* Grid texture used behind hero / dark sections */
+  .grid-texture {
+    background-image: linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 54px 54px;
+  }
+}
+
+/* Marquee ticker */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 
