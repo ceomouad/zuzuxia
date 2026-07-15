@@ -11,7 +11,7 @@
   --border: rgba(10, 20, 40, 0.1);
   --glass: rgba(255, 255, 255, 0.72);
   --glass-border: rgba(255, 255, 255, 0.6);
-  --brand: #0e90ec;
+  --brand: #0a8ef0;
   --brand-ink: #ffffff;
 }
 
@@ -24,7 +24,7 @@
   --border: rgba(255, 255, 255, 0.1);
   --glass: rgba(10, 14, 22, 0.62);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --brand: #35a6ff;
+  --brand: #2aa0ff;
   --brand-ink: #04121f;
 }
 
@@ -87,8 +87,12 @@
     border: 1px solid var(--border);
     @apply rounded-2xl;
   }
+  /* Technical mono eyebrow — editorial detail */
   .eyebrow {
-    @apply text-xs font-bold uppercase tracking-[0.28em] text-brand;
+    @apply font-mono text-[0.7rem] font-bold uppercase tracking-[0.25em] text-brand;
+  }
+  .mono-label {
+    @apply font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--fg-muted)];
   }
   /* Grid texture used behind hero / dark sections */
   .grid-texture {
@@ -96,6 +100,27 @@
       linear-gradient(90deg, var(--border) 1px, transparent 1px);
     background-size: 54px 54px;
   }
+  /* Hairline rule with a small brand tick, like a spec sheet */
+  .rule {
+    @apply border-t border-[var(--border)];
+  }
+}
+
+/* Fine film grain overlay — subtle hand-made texture across the whole page */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.dark body::after,
+body.dark::after {
+  mix-blend-mode: screen;
+  opacity: 0.045;
 }
 
 /* Marquee ticker */

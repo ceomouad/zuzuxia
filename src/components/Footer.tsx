@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Instagram } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
+import { LaneLines } from "./LaneLines";
 import { WhatsAppIcon, TikTokIcon } from "./BrandIcons";
 import {
   HAS_WHATSAPP,
@@ -13,12 +14,26 @@ import {
 export function Footer() {
   return (
     <footer className="relative mt-24 overflow-hidden bg-[#06080c] text-white">
-      {/* Oversized brand watermark */}
+      {/* Track-lane motif + oversized brand watermark */}
+      <LaneLines
+        lanes={8}
+        className="pointer-events-none absolute -right-32 -top-40 h-[34rem] w-[34rem] text-brand/25"
+      />
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-10 left-1/2 -translate-x-1/2 select-none font-display text-[22vw] uppercase leading-none tracking-tight text-white/[0.03]"
       >
         {SITE.name}
+      </div>
+
+      {/* Mono spec strip */}
+      <div className="relative border-b border-white/10">
+        <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-1 py-3 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-white/50">
+          <span>◦ 100% Authentic</span>
+          <span>◦ New &amp; second hand</span>
+          <span>◦ 2–5 day delivery nationwide</span>
+          <span>◦ WhatsApp support</span>
+        </div>
       </div>
 
       <div className="container-x relative grid gap-10 py-16 md:grid-cols-4">

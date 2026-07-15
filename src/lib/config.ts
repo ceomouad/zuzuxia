@@ -7,13 +7,13 @@ export const SITE = {
     "Authentic track & field spikes delivered all across China for athletes, international students, expats and foreigners.",
   currency: "¥",
   instagramUsername:
-    process.env.NEXT_PUBLIC_INSTAGRAM_USERNAME || "abderrv.hmvne",
-  tiktokUsername: process.env.NEXT_PUBLIC_TIKTOK_USERNAME || "",
-  // Digits only, incl. country code, no "+" (e.g. 8613800138000).
-  whatsappNumber: (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "").replace(
-    /[^0-9]/g,
-    ""
-  ),
+    process.env.NEXT_PUBLIC_INSTAGRAM_USERNAME || "zuzux.ia",
+  tiktokUsername:
+    process.env.NEXT_PUBLIC_TIKTOK_USERNAME || "track.and.field.s7",
+  // Digits only, incl. country code, no "+" (e.g. 8618860967283).
+  whatsappNumber: (
+    process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8618860967283"
+  ).replace(/[^0-9]/g, ""),
 };
 
 export const INSTAGRAM_URL = `https://instagram.com/${SITE.instagramUsername}`;

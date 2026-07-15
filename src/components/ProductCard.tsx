@@ -9,7 +9,13 @@ import { formatPrice, HAS_WHATSAPP } from "@/lib/config";
 import { openOrder } from "@/lib/order";
 import { WhatsAppIcon } from "./BrandIcons";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  index,
+}: {
+  product: Product;
+  index?: number;
+}) {
   const [open, setOpen] = useState(false);
 
   // Lock background scroll while the quick-view is open so touch-scrolling
@@ -42,12 +48,17 @@ export function ProductCard({ product }: { product: Product }) {
           aria-label={`View ${product.name}`}
         >
           {product.featured && (
-            <span className="absolute left-0 top-3 z-10 bg-brand px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
+            <span className="absolute left-0 top-3 z-10 bg-brand px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest text-white">
               Featured
             </span>
           )}
-          <span className="pointer-events-none absolute inset-x-0 bottom-0 z-10 translate-y-full bg-[var(--fg)] py-2.5 text-center text-xs font-bold uppercase tracking-widest text-[var(--bg)] transition-transform duration-300 group-hover:translate-y-0">
-            Quick view
+          {index != null && (
+            <span className="absolute right-3 top-3 z-10 font-mono text-xs text-[var(--fg-muted)]">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+          )}
+          <span className="pointer-events-none absolute inset-x-0 bottom-0 z-10 translate-y-full bg-[var(--fg)] py-2.5 text-center font-mono text-xs font-bold uppercase tracking-widest text-[var(--bg)] transition-transform duration-300 group-hover:translate-y-0">
+            Quick view →
           </span>
           <Image
             src={product.images[0] ?? "/products/placeholder.jpg"}
@@ -60,7 +71,7 @@ export function ProductCard({ product }: { product: Product }) {
 
         <div className="flex flex-1 flex-col gap-3 p-5">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-widest text-brand">
+            <p className="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-brand">
               {product.brand}
             </p>
             <h3 className="mt-1 font-display text-lg uppercase leading-[1.05] tracking-tight">
@@ -68,15 +79,15 @@ export function ProductCard({ product }: { product: Product }) {
             </h3>
           </div>
 
-          <div className="flex items-baseline justify-between gap-2">
-            <p className="text-base font-extrabold">
+          <div className="flex items-baseline justify-between gap-2 border-t border-[var(--border)] pt-3">
+            <p className="font-mono text-sm font-bold">
               {product.priceLabel ?? `From ${formatPrice(product.price)}`}
             </p>
             {(product.priceUsedLabel ?? product.priceUsed) != null && (
-              <p className="text-xs font-medium text-[var(--fg-muted)]">
-                2nd-hand{" "}
+              <p className="font-mono text-[0.7rem] text-[var(--fg-muted)]">
+                2ND{" "}
                 {product.priceUsedLabel ??
-                  `from ${formatPrice(product.priceUsed as number)}`}
+                  `${formatPrice(product.priceUsed as number)}`}
               </p>
             )}
           </div>

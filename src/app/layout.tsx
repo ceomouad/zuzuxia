@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow, Anton } from "next/font/google";
+import { Barlow, Anton, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { SITE } from "@/lib/config";
@@ -15,6 +15,12 @@ const anton = Anton({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-display",
+});
+// Space Mono — technical/editorial detail for labels, prices & meta.
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -63,7 +69,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${barlow.variable} ${anton.variable} font-sans`}>
+      <body
+        className={`${barlow.variable} ${anton.variable} ${spaceMono.variable} font-sans`}
+      >
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

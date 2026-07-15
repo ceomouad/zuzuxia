@@ -241,7 +241,7 @@ export function ProductGrid({
       {/* Grid */}
       {filtered.length ? (
         <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {filtered.map((p) => (
+          {filtered.map((p, i) => (
               <motion.div
                 key={p.id}
                 layout
@@ -249,7 +249,7 @@ export function ProductGrid({
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.25 }}
               >
-                <ProductCard product={p} />
+                <ProductCard product={p} index={i} />
               </motion.div>
             ))}
         </div>
