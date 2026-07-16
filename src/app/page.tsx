@@ -1,6 +1,5 @@
-import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Hero } from "@/components/Hero";
+import { ShowcaseHero } from "@/components/ShowcaseHero";
 import { Marquee } from "@/components/Marquee";
 import { Categories } from "@/components/Categories";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
@@ -23,15 +22,9 @@ export default async function HomePage() {
     counts[p.brand] = (counts[p.brand] ?? 0) + 1;
   }
 
-  const heroImage =
-    featuredList[0]?.images[0] ??
-    products[0]?.images[0] ??
-    "/products/s17a.jpg";
-
   return (
     <main>
-      <Navbar />
-      <Hero heroImage={heroImage} />
+      <ShowcaseHero products={featuredList} />
       <Marquee />
       <Categories counts={counts} />
       <FeaturedProducts products={featuredList} />

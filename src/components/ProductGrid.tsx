@@ -12,9 +12,11 @@ type Sort = "featured" | "price-asc" | "price-desc" | "newest";
 export function ProductGrid({
   products,
   initialBrand,
+  initialQuery,
 }: {
   products: Product[];
   initialBrand?: string;
+  initialQuery?: string;
 }) {
   const brands = useMemo(
     () => Array.from(new Set(products.map((p) => p.brand))).sort(),
@@ -36,7 +38,7 @@ export function ProductGrid({
     return { min: Math.min(...prices, 0), max: Math.max(...prices, 1000) };
   }, [products]);
 
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery ?? "");
   const [brand, setBrand] = useState<string>(
     initialBrand && brands.includes(initialBrand) ? initialBrand : "All"
   );

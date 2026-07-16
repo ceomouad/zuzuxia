@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default async function ShopPage({
   searchParams,
 }: {
-  searchParams: { brand?: string };
+  searchParams: { brand?: string; q?: string };
 }) {
   const products = await repository.list();
 
@@ -35,7 +35,11 @@ export default async function ShopPage({
         </p>
       </div>
       <div className="mt-10">
-        <ProductGrid products={products} initialBrand={searchParams.brand} />
+        <ProductGrid
+          products={products}
+          initialBrand={searchParams.brand}
+          initialQuery={searchParams.q}
+        />
       </div>
       <Footer />
     </main>
