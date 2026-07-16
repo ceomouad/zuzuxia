@@ -1,4 +1,5 @@
-import { INSTAGRAM_URL, SITE, whatsappUrl } from "./config";
+import { formatPrice, INSTAGRAM_URL, SITE, whatsappUrl } from "./config";
+import type { CartItem } from "./cart";
 
 /**
  * Ordering / customer service runs through WhatsApp (with Instagram as a
@@ -45,6 +46,66 @@ export async function openOrder(
     }
   }
 
+  const url = useWhatsApp ? whatsappUrl(message) : INSTAGRAM_URL;
+  if (typeof window !== "undefined") {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+  return useWhatsApp ? "whatsapp" : "instagram";
+}
+
+export interface CheckoutDetails {
+  name: string;
+  contact: string;
+  address: string;
+  note?: string;
+}
+
+/** Full-cart order message for checkout — sent to WhatsApp for confirmation. */
+export function buildCartMessage(
+  items: CartItem[],
+  d: CheckoutDetails,
+  subtotal: number
+): string {
+  const lines = items.map((i, n) => {
+    const used =
+      i.priceUsed != null ? ` / 2nd-hand ${formatPrice(i.priceUsed)}` : "";
+    return `${n + 1}. ${i.name} — size ${i.size} × ${i.qty} (from ${formatPrice(i.price)}${used})`;
+  });
+  return [
+    "Hi Zu Zu Xia! I'd like to place an order:",
+    "",
+    ...lines,
+    "",
+    `Reference total (new): ${formatPrice(subtotal)}`,
+    "",
+    `Name: ${d.name}`,
+    `WhatsApp/WeChat: ${d.contact}`,
+    `Delivery address: ${d.address}`,
+    d.note ? `Notes: ${d.note}` : null,
+    "",
+    "Please confirm availability, condition and the final price. Thank you!",
+  ]
+    .filter((l): l is string => l !== null)
+    .join("\n");
+}
+
+/** Opens the checkout order chat (WhatsApp, or Instagram fallback + clipboard). */
+export async function openCartOrder(
+  items: CartItem[],
+  d: CheckoutDetails,
+  subtotal: number
+): Promise<OrderChannel> {
+  const message = buildCartMessage(items, d, subtotal);
+  const useWhatsApp = Boolean(SITE.whatsappNumber);
+  if (!useWhatsApp) {
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard) {
+        await navigator.clipboard.writeText(message);
+      }
+    } catch {
+      /* clipboard may be blocked */
+    }
+  }
   const url = useWhatsApp ? whatsappUrl(message) : INSTAGRAM_URL;
   if (typeof window !== "undefined") {
     window.open(url, "_blank", "noopener,noreferrer");

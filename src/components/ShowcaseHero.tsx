@@ -4,17 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Menu, Search, ShoppingBag, X } from "lucide-react";
+import { Check, Plus, Search, ShoppingBag, X } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/config";
 import { openOrder } from "@/lib/order";
+import { useCart } from "@/lib/cart";
 import { BrandLogo } from "./BrandLogo";
 
 const NAV = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
-  { href: "/#categories", label: "Collections" },
-  { href: "/#faq", label: "Contact" },
+  { href: "/cart", label: "Cart" },
+  { href: "/checkout", label: "Checkout" },
 ];
 
 // Diagonal gradient ribbons under the hero shoe (from the concept design).
@@ -28,11 +29,13 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function ShowcaseHero({ products }: { products: Product[] }) {
   const items = useMemo(() => products.slice(0, 7), [products]);
+  const cart = useCart();
   const [active, setActive] = useState(0);
   const [imageIdx, setImageIdx] = useState(0);
   const [size, setSize] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [sent, setSent] = useState(false);
+  const [added, setAdded] = useState(false);
 
   const product = items[active];
   if (!product) return null;
@@ -54,9 +57,16 @@ export function ShowcaseHero({ products }: { products: Product[] }) {
     setTimeout(() => setSent(false), 2200);
   }
 
+  function addToCart() {
+    if (!chosenSize) return;
+    cart.add(product, chosenSize);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1600);
+  }
+
   return (
-    <section className="px-3 pt-3 sm:px-5 sm:pt-5">
-      <div className="relative mx-auto max-w-[96rem] overflow-hidden rounded-[1.6rem] bg-[#131419] text-white shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)] sm:rounded-[2rem]">
+    <section className="h-[100svh] px-3 py-3 sm:px-5 sm:py-4">
+      <div className="relative mx-auto flex h-full max-w-[96rem] flex-col overflow-hidden rounded-[1.6rem] bg-[#131419] text-white shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)] sm:rounded-[2rem]">
         {/* Giant watermark */}
         <div
           aria-hidden
@@ -107,11 +117,16 @@ export function ShowcaseHero({ products }: { products: Product[] }) {
               />
             </form>
             <Link
-              href="/shop"
-              aria-label="Shop bag"
-              className="grid h-10 w-10 place-items-center rounded-xl bg-white text-ink transition hover:bg-white/85"
+              href="/cart"
+              aria-label="Cart"
+              className="relative grid h-10 w-10 place-items-center rounded-xl bg-white text-ink transition hover:bg-white/85"
             >
               <ShoppingBag size={17} />
+              {cart.count > 0 && (
+                <span className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-brand px-1 font-mono text-[0.65rem] font-bold text-white">
+                  {cart.count}
+                </span>
+              )}
             </Link>
             <button
               type="button"
@@ -154,8 +169,8 @@ export function ShowcaseHero({ products }: { products: Product[] }) {
           )}
         </AnimatePresence>
 
-        {/* ---------- Main stage ---------- */}
-        <div className="relative z-10 grid gap-6 px-5 pb-10 pt-6 sm:px-8 lg:grid-cols-[240px_minmax(0,1fr)_150px] lg:gap-2 lg:pb-14 lg:pt-8 xl:grid-cols-[260px_minmax(0,1fr)_170px]">
+        {/* ---------- Main stage (fills the frame; internal scroll on small screens) ---------- */}
+        <div className="relative z-10 grid min-h-0 flex-1 content-center gap-5 overflow-y-auto px-5 pb-6 pt-5 sm:px-8 lg:grid-cols-[240px_minmax(0,1fr)_150px] lg:items-center lg:gap-2 lg:overflow-visible lg:pb-8 lg:pt-4 xl:grid-cols-[260px_minmax(0,1fr)_170px]">
           {/* Left: product panel (keyed swap — never gated on exit animations) */}
           <div className="relative z-30 order-2 lg:order-1 lg:pt-10">
             <motion.div
@@ -225,19 +240,36 @@ export function ShowcaseHero({ products }: { products: Product[] }) {
                   </div>
                 )}
 
-                <button
-                  type="button"
-                  onClick={buy}
-                  className="mt-7 inline-flex h-12 min-w-[10rem] items-center justify-center gap-2 rounded-lg bg-brand px-8 text-sm font-bold uppercase tracking-[0.2em] text-white transition hover:bg-brand-dark hover:shadow-glow active:scale-[0.97]"
-                >
-                  {sent ? (
-                    <>
-                      <Check size={16} /> Opening chat
-                    </>
-                  ) : (
-                    "Buy"
-                  )}
-                </button>
+                <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={buy}
+                    className="inline-flex h-12 min-w-[8.5rem] items-center justify-center gap-2 rounded-lg bg-brand px-7 text-sm font-bold uppercase tracking-[0.2em] text-white transition hover:bg-brand-dark hover:shadow-glow active:scale-[0.97]"
+                  >
+                    {sent ? (
+                      <>
+                        <Check size={16} /> Opening chat
+                      </>
+                    ) : (
+                      "Buy"
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={addToCart}
+                    className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-white/25 px-6 text-sm font-bold uppercase tracking-[0.15em] text-white/90 transition hover:border-white hover:bg-white/10 active:scale-[0.97]"
+                  >
+                    {added ? (
+                      <>
+                        <Check size={16} /> Added
+                      </>
+                    ) : (
+                      <>
+                        <Plus size={16} /> Add to cart
+                      </>
+                    )}
+                  </button>
+                </div>
             </motion.div>
           </div>
 

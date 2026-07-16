@@ -58,9 +58,8 @@ export function Footer() {
             {[
               { href: "/", label: "Home" },
               { href: "/shop", label: "Shop" },
-              { href: "/#categories", label: "Brands" },
-              { href: "/#about", label: "About" },
-              { href: "/#faq", label: "FAQ" },
+              { href: "/cart", label: "Cart" },
+              { href: "/checkout", label: "Checkout" },
             ].map((l) => (
               <li key={l.href}>
                 <Link href={l.href} className="transition-colors hover:text-brand">

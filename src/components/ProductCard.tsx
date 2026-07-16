@@ -3,10 +3,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Instagram, X } from "lucide-react";
+import { Check, Instagram, Plus, X } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { formatPrice, HAS_WHATSAPP } from "@/lib/config";
 import { openOrder } from "@/lib/order";
+import { useCart } from "@/lib/cart";
 import { WhatsAppIcon } from "./BrandIcons";
 
 export function ProductCard({
@@ -118,9 +119,11 @@ function QuickView({
   product: Product;
   onClose: () => void;
 }) {
+  const cart = useCart();
   const [size, setSize] = useState<string | null>(product.sizes[0] ?? null);
   const [active, setActive] = useState(0);
   const [sent, setSent] = useState(false);
+  const [added, setAdded] = useState(false);
   const gallery = product.images.length
     ? product.images
     : ["/products/placeholder.jpg"];
@@ -129,6 +132,13 @@ function QuickView({
     await openOrder(product.name, size ?? undefined);
     setSent(true);
     setTimeout(() => setSent(false), 2500);
+  }
+
+  function addToCart() {
+    if (!size) return;
+    cart.add(product, size);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1600);
   }
 
   return (
@@ -158,18 +168,18 @@ function QuickView({
           <X size={18} />
         </button>
 
-        <div className="flex shrink-0 flex-col bg-white">
+        <div className="flex shrink-0 flex-col bg-[var(--bg-sunken)]">
           <div className="relative aspect-square w-full">
             <Image
               src={gallery[active] ?? gallery[0]}
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-contain p-8"
+              className="object-contain p-8 drop-shadow-[0_24px_28px_rgba(0,0,0,0.45)]"
             />
           </div>
           {gallery.length > 1 && (
-            <div className="flex flex-wrap gap-2 border-t border-black/5 p-3">
+            <div className="flex flex-wrap gap-2 border-t border-[var(--border)] p-3">
               {gallery.map((src, i) => (
                 <button
                   key={src}
@@ -179,7 +189,7 @@ function QuickView({
                   className={`relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border transition ${
                     active === i
                       ? "border-brand ring-1 ring-brand"
-                      : "border-black/10 hover:border-brand/60"
+                      : "border-[var(--border)] hover:border-brand/60"
                   }`}
                 >
                   <Image
@@ -246,24 +256,38 @@ function QuickView({
             </div>
           </div>
 
-          <button type="button" onClick={buy} className="btn-brand mt-2 w-full">
-            {sent ? (
-              <>
-                <Check size={16} />{" "}
-                {HAS_WHATSAPP
-                  ? "Opening WhatsApp…"
-                  : "Message copied — opening Instagram"}
-              </>
-            ) : HAS_WHATSAPP ? (
-              <>
-                <WhatsAppIcon size={16} /> Order on WhatsApp
-              </>
-            ) : (
-              <>
-                <Instagram size={16} /> Order on Instagram
-              </>
-            )}
-          </button>
+          <div className="mt-2 grid gap-2 sm:grid-cols-2">
+            <button type="button" onClick={buy} className="btn-brand w-full">
+              {sent ? (
+                <>
+                  <Check size={16} /> Opening…
+                </>
+              ) : HAS_WHATSAPP ? (
+                <>
+                  <WhatsAppIcon size={16} /> Buy now
+                </>
+              ) : (
+                <>
+                  <Instagram size={16} /> Buy now
+                </>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={addToCart}
+              className="btn-outline w-full"
+            >
+              {added ? (
+                <>
+                  <Check size={16} /> Added
+                </>
+              ) : (
+                <>
+                  <Plus size={16} /> Add to cart
+                </>
+              )}
+            </button>
+          </div>
           <p className="text-center text-xs text-[var(--fg-muted)]">
             {HAS_WHATSAPP
               ? "Opens WhatsApp with your order message ready to send."

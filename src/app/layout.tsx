@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Barlow, Anton, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { CartProvider } from "@/lib/cart";
 import { SITE } from "@/lib/config";
 
 // Barlow — athletic, slightly condensed grotesque for body & UI.
@@ -72,7 +73,9 @@ export default function RootLayout({
       <body
         className={`${barlow.variable} ${anton.variable} ${spaceMono.variable} font-sans`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <CartProvider>{children}</CartProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

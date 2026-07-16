@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Instagram, Menu, X } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
+import { Instagram, Menu, ShoppingBag, X } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { WhatsAppIcon, TikTokIcon } from "./BrandIcons";
+import { useCart } from "@/lib/cart";
 import {
   HAS_WHATSAPP,
   INSTAGRAM_URL,
@@ -16,13 +16,14 @@ import {
 } from "@/lib/config";
 
 const LINKS = [
+  { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
-  { href: "/#categories", label: "Brands" },
-  { href: "/#about", label: "About" },
-  { href: "/#faq", label: "FAQ" },
+  { href: "/cart", label: "Cart" },
+  { href: "/checkout", label: "Checkout" },
 ];
 
 export function Navbar() {
+  const { count } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -83,7 +84,18 @@ export function Navbar() {
                 <TikTokIcon size={17} />
               </a>
             )}
-            <ThemeToggle />
+            <Link
+              href="/cart"
+              aria-label="Cart"
+              className="relative grid h-10 w-10 place-items-center rounded-xl bg-white text-ink transition hover:bg-white/85"
+            >
+              <ShoppingBag size={17} />
+              {count > 0 && (
+                <span className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-brand px-1 font-mono text-[0.65rem] font-bold text-white">
+                  {count}
+                </span>
+              )}
+            </Link>
             <a
               href={HAS_WHATSAPP ? whatsappUrl() : INSTAGRAM_URL}
               target="_blank"
