@@ -1,121 +1,63 @@
 import Link from "next/link";
-import { Instagram } from "lucide-react";
-import { BrandLogo } from "./BrandLogo";
-import { LaneLines } from "./LaneLines";
-import { WhatsAppIcon, TikTokIcon } from "./BrandIcons";
 import {
   HAS_WHATSAPP,
   INSTAGRAM_URL,
-  SITE,
   TIKTOK_URL,
   whatsappUrl,
 } from "@/lib/config";
 
 export function Footer() {
+  const chat = HAS_WHATSAPP ? whatsappUrl() : INSTAGRAM_URL;
   return (
-    <footer className="relative mt-24 overflow-hidden bg-[#06080c] text-white">
-      {/* Track-lane motif + oversized brand watermark */}
-      <LaneLines
-        lanes={8}
-        className="pointer-events-none absolute -right-32 -top-40 h-[34rem] w-[34rem] text-brand/25"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-10 left-1/2 -translate-x-1/2 select-none font-display text-[22vw] uppercase leading-none tracking-tight text-white/[0.03]"
-      >
-        {SITE.name}
-      </div>
-
-      {/* Mono spec strip */}
-      <div className="relative border-b border-white/10">
-        <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-1 py-3 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-white/50">
-          <span>◦ 100% Authentic</span>
-          <span>◦ New &amp; second hand</span>
-          <span>◦ 2–5 day delivery nationwide</span>
-          <span>◦ WhatsApp support</span>
-        </div>
-      </div>
-
-      <div className="container-x relative grid gap-10 py-16 md:grid-cols-4">
-        <div className="md:col-span-2">
-          <div className="flex items-center gap-2.5">
-            <BrandLogo className="h-10 w-10" />
-            <span className="font-display text-xl uppercase tracking-tight">
-              {SITE.name}
-            </span>
+    <footer className="border-t border-[#1c1c1c] bg-[#0A0A0A] px-5 pb-9 pt-[54px] text-white sm:px-10">
+      <div className="mx-auto grid max-w-[1320px] gap-[30px] sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+        <div>
+          <div className="font-display text-[34px] font-black italic leading-none tracking-[-0.02em]">
+            ZUZUXIA<span className="text-brand">.</span>
           </div>
-          <p className="mt-4 max-w-sm text-sm text-white/60">
-            {SITE.description} Authentic pairs, fast shipping, and friendly
-            support in English — no complicated Chinese apps required.
+          <p className="mt-3.5 max-w-[260px] text-[13px] leading-normal text-[#8a8a8a]">
+            Authentic track &amp; field spikes — brand new and second hand —
+            delivered all across China. 租租侠.
           </p>
         </div>
-
         <div>
-          <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/50">
-            Explore
-          </h3>
-          <ul className="mt-4 space-y-2.5 text-sm font-medium text-white/80">
-            {[
-              { href: "/", label: "Home" },
-              { href: "/shop", label: "Shop" },
-              { href: "/cart", label: "Cart" },
-              { href: "/checkout", label: "Checkout" },
-            ].map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="transition-colors hover:text-brand">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="mb-3.5 font-mono text-[11px] font-bold tracking-[0.16em] text-brand">
+            SHOP
+          </div>
+          <div className="flex flex-col gap-[9px] text-[13px] text-[#b6b6b6]">
+            <Link href="/shop" className="transition-colors hover:text-brand">All Spikes</Link>
+            <Link href="/" className="transition-colors hover:text-brand">Featured</Link>
+            <Link href="/cart" className="transition-colors hover:text-brand">Cart</Link>
+            <Link href="/checkout" className="transition-colors hover:text-brand">Checkout</Link>
+          </div>
         </div>
-
         <div>
-          <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/50">
-            Contact
-          </h3>
-          <p className="mt-4 text-sm text-white/60">
-            Order &amp; customer support on WhatsApp. Follow us for drops.
-          </p>
-          <a
-            href={HAS_WHATSAPP ? whatsappUrl() : INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-brand mt-4"
-          >
-            {HAS_WHATSAPP ? <WhatsAppIcon size={16} /> : <Instagram size={16} />}
-            {HAS_WHATSAPP ? "Chat on WhatsApp" : "Instagram DM"}
-          </a>
-          <div className="mt-4 flex items-center gap-2">
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-colors hover:border-brand hover:text-brand"
-            >
-              <Instagram size={18} />
-            </a>
+          <div className="mb-3.5 font-mono text-[11px] font-bold tracking-[0.16em] text-brand">
+            SUPPORT
+          </div>
+          <div className="flex flex-col gap-[9px] text-[13px] text-[#b6b6b6]">
+            <a href={chat} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-brand">Sizing Help</a>
+            <a href={chat} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-brand">Shipping</a>
+            <a href={chat} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-brand">Returns</a>
+            <a href={chat} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-brand">Contact</a>
+          </div>
+        </div>
+        <div>
+          <div className="mb-3.5 font-mono text-[11px] font-bold tracking-[0.16em] text-brand">
+            FOLLOW
+          </div>
+          <div className="flex flex-col gap-[9px] text-[13px] text-[#b6b6b6]">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-brand">Instagram</a>
             {TIKTOK_URL && (
-              <a
-                href={TIKTOK_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="TikTok"
-                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-colors hover:border-brand hover:text-brand"
-              >
-                <TikTokIcon size={17} />
-              </a>
+              <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-brand">TikTok</a>
             )}
+            <a href={chat} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-brand">WhatsApp</a>
           </div>
         </div>
       </div>
-
-      <div className="relative border-t border-white/10">
-        <div className="container-x flex flex-col items-center justify-between gap-2 py-6 text-xs text-white/50 sm:flex-row">
-          <p>© 2026 {SITE.name} · 租租侠. All rights reserved.</p>
-          <p>Designed for foreigners living in China · Delivered nationwide</p>
-        </div>
+      <div className="mx-auto mt-9 flex max-w-[1320px] flex-wrap justify-between gap-2.5 border-t border-[#1c1c1c] pt-[22px] font-mono text-[11px] leading-snug text-[#6f6f6f]">
+        <span>© 2026 ZU ZU XIA · 租租侠</span>
+        <span>BUILT FOR ATHLETES IN CHINA</span>
       </div>
     </footer>
   );

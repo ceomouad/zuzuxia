@@ -12,7 +12,7 @@ export default function CartPage() {
   return (
     <main>
       <Navbar />
-      <div className="pt-28 md:pt-32">
+      <div className="pt-12 md:pt-16">
         <CartView />
       </div>
       <Footer />

@@ -49,7 +49,7 @@ export function ProductCard({
           aria-label={`View ${product.name}`}
         >
           {product.featured && (
-            <span className="absolute left-0 top-3 z-10 bg-brand px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest text-white">
+            <span className="absolute left-0 top-3 z-10 bg-brand px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest text-ink">
               Featured
             </span>
           )}
@@ -112,7 +112,7 @@ export function ProductCard({
   );
 }
 
-function QuickView({
+export function QuickView({
   product,
   onClose,
 }: {
@@ -246,7 +246,7 @@ function QuickView({
                   onClick={() => setSize(s)}
                   className={`min-w-[3rem] rounded-xl border px-3 py-2 text-sm font-medium transition ${
                     size === s
-                      ? "border-brand bg-brand text-white"
+                      ? "border-brand bg-brand text-ink"
                       : "border-[var(--border)] hover:border-brand"
                   }`}
                 >

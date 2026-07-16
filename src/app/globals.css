@@ -2,30 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg: #f5f7fa;
-  --bg-elevated: #ffffff;
-  --bg-sunken: #eef1f6;
-  --fg: #0a0a0b;
-  --fg-muted: #5a6472;
-  --border: rgba(10, 20, 40, 0.1);
-  --glass: rgba(255, 255, 255, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  --brand: #0a8ef0;
-  --brand-ink: #ffffff;
-}
-
+/* MACH store design tokens — dark #0A0A0A canvas, volt #CCFF00 accent. */
+:root,
 .dark {
-  --bg: #06080c;
-  --bg-elevated: #0e1219;
-  --bg-sunken: #04060a;
-  --fg: #f4f7fb;
-  --fg-muted: #93a0b2;
-  --border: rgba(255, 255, 255, 0.1);
-  --glass: rgba(10, 14, 22, 0.62);
+  --bg: #0a0a0a;
+  --bg-elevated: #121212;
+  --bg-sunken: #000000;
+  --fg: #ffffff;
+  --fg-muted: #9a9a9a;
+  --border: #1f1f1f;
+  --glass: rgba(10, 10, 10, 0.82);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --brand: #2aa0ff;
-  --brand-ink: #04121f;
+  --brand: #ccff00;
+  --brand-ink: #0a0a0a;
 }
 
 @layer base {
@@ -47,7 +36,7 @@
     height: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    background: color-mix(in srgb, var(--brand) 55%, transparent);
+    background: #2a2a2a;
     border-radius: 999px;
     border: 3px solid var(--bg);
   }
@@ -56,85 +45,81 @@
 @layer components {
   .glass {
     background: var(--glass);
-    backdrop-filter: blur(18px) saturate(170%);
-    -webkit-backdrop-filter: blur(18px) saturate(170%);
-    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
   }
   .container-x {
-    @apply mx-auto w-full max-w-[88rem] px-5 sm:px-8;
+    @apply mx-auto w-full max-w-[1320px] px-5 sm:px-10;
   }
   .brand-text {
     color: var(--brand);
   }
-  /* Big athletic display headline — condensed, tight, uppercase */
+  /* Big display headline — Saira Condensed 900 italic, tight, uppercase */
   .display {
-    @apply font-display uppercase leading-[0.92] tracking-[-0.01em];
+    @apply font-display font-black italic uppercase leading-[0.84] tracking-[-0.02em];
   }
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.8rem] font-bold uppercase tracking-[0.08em] transition-all duration-300 active:scale-[0.97];
+    @apply inline-flex items-center justify-center gap-2 px-6 py-4 font-mono text-[13px] font-bold uppercase tracking-[0.08em] transition-colors duration-200;
   }
   .btn-primary {
-    @apply btn bg-[var(--fg)] text-[var(--bg)] hover:opacity-90 hover:shadow-soft;
+    @apply btn bg-white text-[#0a0a0a] hover:bg-brand;
   }
   .btn-brand {
-    @apply btn bg-brand text-white hover:bg-brand-dark hover:shadow-glow;
+    @apply btn bg-brand text-[#0a0a0a] hover:bg-white;
   }
   .btn-outline {
-    @apply btn border-2 border-[var(--fg)] bg-transparent text-[var(--fg)] hover:bg-[var(--fg)] hover:text-[var(--bg)];
+    @apply btn border border-white/25 bg-transparent text-white hover:border-brand hover:text-brand;
   }
   .card {
     background: var(--bg-elevated);
     border: 1px solid var(--border);
-    @apply rounded-2xl;
   }
-  /* Technical mono eyebrow — editorial detail */
   .eyebrow {
-    @apply font-mono text-[0.7rem] font-bold uppercase tracking-[0.25em] text-brand;
+    @apply font-mono text-xs font-bold uppercase tracking-[0.24em] text-brand;
   }
   .mono-label {
-    @apply font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--fg-muted)];
+    @apply font-mono text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[var(--fg-muted)];
   }
-  /* Grid texture used behind hero / dark sections */
-  .grid-texture {
-    background-image: linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 54px 54px;
+  /* Diagonal volt speed-line texture (from the design) */
+  .speedlines {
+    background: repeating-linear-gradient(
+      102deg,
+      transparent 0 34px,
+      rgba(204, 255, 0, 0.04) 34px 35px
+    );
   }
-  /* Hairline rule with a small brand tick, like a spec sheet */
-  .rule {
-    @apply border-t border-[var(--border)];
+  .speedlines-strong {
+    background: repeating-linear-gradient(
+      102deg,
+      transparent 0 34px,
+      rgba(204, 255, 0, 0.05) 34px 35px
+    );
+  }
+  .speedlines-anim {
+    animation: machdash 2.4s linear infinite;
   }
 }
 
-/* Fine film grain overlay — subtle hand-made texture across the whole page */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.dark body::after,
-body.dark::after {
-  mix-blend-mode: screen;
-  opacity: 0.045;
+@keyframes machdash {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 240px 0;
+  }
 }
 
 /* Marquee ticker */
 .marquee {
-  display: flex;
+  display: inline-flex;
   width: max-content;
-  animation: marquee 30s linear infinite;
+  animation: machmarquee 22s linear infinite;
 }
-@media (prefers-reduced-motion: reduce) {
-  .marquee {
-    animation: none;
+@keyframes machmarquee {
+  from {
+    transform: translateX(0);
   }
-}
-@keyframes marquee {
   to {
     transform: translateX(-50%);
   }
@@ -144,19 +129,14 @@ body.dark::after {
 .skeleton {
   position: relative;
   overflow: hidden;
-  background: color-mix(in srgb, var(--fg) 8%, transparent);
+  background: #161616;
 }
 .skeleton::after {
   content: "";
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--fg) 6%, transparent),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, #222, transparent);
   animation: shimmer 1.6s infinite;
 }
 @keyframes shimmer {
@@ -169,6 +149,10 @@ body.dark::after {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .marquee,
+  .speedlines-anim {
+    animation: none;
   }
   *,
   *::before,

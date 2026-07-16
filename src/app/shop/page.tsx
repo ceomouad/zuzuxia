@@ -22,10 +22,10 @@ export default async function ShopPage({
   return (
     <main>
       <Navbar />
-      <div className="container-x pt-28 md:pt-36">
-        <span className="eyebrow">The collection</span>
-        <h1 className="mt-2 font-display text-4xl font-black tracking-tight sm:text-5xl">
-          Shop Track Spikes
+      <div className="container-x pt-14 md:pt-20">
+        <span className="eyebrow">The full lineup</span>
+        <h1 className="display mt-3 text-5xl sm:text-7xl">
+          Every Spike.
         </h1>
         <p className="mt-3 max-w-xl text-[var(--fg-muted)]">
           Authentic pairs, ready to ship across China — brand new and second

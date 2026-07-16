@@ -1,23 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow, Anton, Space_Mono } from "next/font/google";
+import { Saira, Saira_Condensed, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CartProvider } from "@/lib/cart";
 import { SITE } from "@/lib/config";
 
-// Barlow — athletic, slightly condensed grotesque for body & UI.
-const barlow = Barlow({
+// Type system from the MACH store design.
+const saira = Saira({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600"],
   variable: "--font-sans",
 });
-// Anton — heavy condensed display for big, poster-style headlines.
-const anton = Anton({
+const sairaCondensed = Saira_Condensed({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["500", "600", "700", "800", "900"],
   variable: "--font-display",
 });
-// Space Mono — technical/editorial detail for labels, prices & meta.
 const spaceMono = Space_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -71,7 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${barlow.variable} ${anton.variable} ${spaceMono.variable} font-sans`}
+        className={`${saira.variable} ${sairaCondensed.variable} ${spaceMono.variable} font-sans`}
       >
         <ThemeProvider>
           <CartProvider>{children}</CartProvider>

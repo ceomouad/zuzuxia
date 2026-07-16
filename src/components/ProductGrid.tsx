@@ -133,7 +133,7 @@ export function ProductGrid({
             onClick={() => setBrand(b)}
             className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
               brand === b
-                ? "border-brand bg-brand text-white"
+                ? "border-brand bg-brand text-ink"
                 : "border-[var(--border)] hover:border-brand"
             }`}
           >
@@ -175,7 +175,7 @@ export function ProductGrid({
                 onClick={() => setSize(null)}
                 className={`rounded-lg border px-3 py-1.5 text-sm transition ${
                   size === null
-                    ? "border-brand bg-brand text-white"
+                    ? "border-brand bg-brand text-ink"
                     : "border-[var(--border)] hover:border-brand"
                 }`}
               >
@@ -188,7 +188,7 @@ export function ProductGrid({
                   onClick={() => setSize(s)}
                   className={`rounded-lg border px-3 py-1.5 text-sm transition ${
                     size === s
-                      ? "border-brand bg-brand text-white"
+                      ? "border-brand bg-brand text-ink"
                       : "border-[var(--border)] hover:border-brand"
                   }`}
                 >

@@ -34,7 +34,7 @@ export function CheckoutView() {
     return (
       <div className="grid min-h-[60vh] place-items-center px-4 text-center">
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
-          <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-brand text-white">
+          <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-brand text-ink">
             <Check size={28} />
           </span>
           <h1 className="display mt-6 text-4xl sm:text-5xl">Order sent</h1>
